@@ -68,8 +68,7 @@ class Mu300Service {
   Future<Map<String, dynamic>?> bands(
     RouterSession session, {
     String fresh = '0',
-  }) =>
-      _get(session, 'lock_get', {'fresh': fresh});
+  }) => _get(session, 'lock_get', {'fresh': fresh});
 
   /// USB networking role.
   Future<Map<String, dynamic>?> usb(RouterSession session) =>
@@ -120,10 +119,7 @@ class Mu300Service {
   /// records that an earlier decoder reported n79, which this RF chain cannot
   /// use, and locking it wedged the CP until the firmware was power-cycled.
   /// Anything offered in the UI has to come from here.
-  static List<int> supportedBands(
-    Map<String, dynamic>? lock,
-    String kind,
-  ) {
+  static List<int> supportedBands(Map<String, dynamic>? lock, String kind) {
     final caps = lock?['caps'];
     if (caps is! Map) return const [];
     final raw = caps[kind];
@@ -155,16 +151,12 @@ class Mu300Service {
     RouterSession session, {
     required String kind,
     required String bands,
-  }) =>
-      _write(session, 'lock_set', {'kind': kind, 'val': bands});
+  }) => _write(session, 'lock_set', {'kind': kind, 'val': bands});
 
   /// Switches the network mode: `auto`, `4g`, `sa` or `nsa`.
   ///
   /// Same detached-apply semantics as [setBandLock], same half-minute outage.
-  Future<LockApply> setNetworkMode(
-    RouterSession session,
-    String mode,
-  ) =>
+  Future<LockApply> setNetworkMode(RouterSession session, String mode) =>
       _write(session, 'lock_set', {'kind': 'mode', 'val': mode});
 
   /// Runs one of the firmware's control actions.
@@ -182,8 +174,7 @@ class Mu300Service {
     RouterSession session, {
     required String op,
     String arg = '',
-  }) =>
-      _write(session, 'act', {'op': op, 'arg': arg});
+  }) => _write(session, 'act', {'op': op, 'arg': arg});
 
   /// Turns TTL rewriting on or off, or changes the value it rewrites to.
   ///
@@ -245,10 +236,7 @@ class Mu300Service {
   }
 
   /// Pulls one nested object out of a `status` reply.
-  static Map<String, dynamic>? _sub(
-    Map<String, dynamic>? source,
-    String key,
-  ) {
+  static Map<String, dynamic>? _sub(Map<String, dynamic>? source, String key) {
     if (source == null) return null;
     final value = source[key];
     return value is Map<String, dynamic> ? value : null;
@@ -417,8 +405,8 @@ class SignalReading {
   /// Vendor counters arrive as `int`, `double` or occasionally a quoted
   /// `"-83.9"`, so nothing here can assume a type.
   static double? _asDouble(Object? raw) => switch (raw) {
-        final num n => n.toDouble(),
-        final String s => double.tryParse(s),
-        _ => null,
-      };
+    final num n => n.toDouble(),
+    final String s => double.tryParse(s),
+    _ => null,
+  };
 }

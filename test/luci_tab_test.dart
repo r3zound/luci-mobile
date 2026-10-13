@@ -4,6 +4,10 @@ import 'package:luci_mobile/navigation/luci_tab.dart';
 
 /// The shell went from four destinations to five, which silently re-pointed
 /// every hardcoded index. These pin the contract the enum replaced them with.
+///
+/// Device sits between Insights and Settings: it reads the vendor's
+/// mu300dash object, so it is cellular hardware rather than another view of
+/// the same router state, and it is useless on hardware without a modem.
 void main() {
   test('the destination order is the one the shell renders', () {
     expect(LuciTab.values, [
@@ -11,6 +15,7 @@ void main() {
       LuciTab.network,
       LuciTab.clients,
       LuciTab.insights,
+      LuciTab.device,
       LuciTab.settings,
     ]);
   });

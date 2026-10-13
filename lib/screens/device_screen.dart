@@ -150,9 +150,7 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
     if (!mounted) return;
 
     final message = result.accepted
-        ? (result.detached
-              ? l10n.deviceReconnecting
-              : l10n.deviceApplyStarted)
+        ? (result.detached ? l10n.deviceReconnecting : l10n.deviceApplyStarted)
         : (result.busy
               ? l10n.deviceRadioBusy
               : (result.message ?? l10n.deviceApplyRefused));
@@ -372,7 +370,11 @@ class _CellularCard extends StatelessWidget {
       SignalReading.tryBuild(measurements, 'rsrp', 'RSRP', unit: 'dBm'),
       SignalReading.tryBuild(measurements, 'rsrq', 'RSRQ', unit: 'dB'),
       SignalReading.tryBuild(measurements, 'sinr', 'SINR', unit: 'dB'),
-      SignalReading.tryBuild(measurements, 'band', source == 'nr' ? 'NR band' : 'LTE band'),
+      SignalReading.tryBuild(
+        measurements,
+        'band',
+        source == 'nr' ? 'NR band' : 'LTE band',
+      ),
       SignalReading.tryBuild(measurements, 'arfcn', 'ARFCN'),
       SignalReading.tryBuild(measurements, 'pci', 'PCI'),
       SignalReading.tryBuild(measurements, 'gnb', 'gNB'),
@@ -408,10 +410,7 @@ class _CellularCard extends StatelessWidget {
             _ReadingGrid(readings: readings),
             if (lte != null) ...[
               const SizedBox(height: LuciSpacing.md),
-              Text(
-                'LTE anchor',
-                style: LuciTextStyles.cardSubtitle(context),
-              ),
+              Text('LTE anchor', style: LuciTextStyles.cardSubtitle(context)),
               const SizedBox(height: LuciSpacing.xs),
               _ReadingGrid(
                 readings: [
@@ -475,7 +474,12 @@ class _TemperaturesCard extends StatelessWidget {
       SignalReading.tryBuild(temps, 'cpu', l10n.deviceTempCpu, unit: '°C'),
       SignalReading.tryBuild(temps, 'modem', l10n.deviceTempModem, unit: '°C'),
       SignalReading.tryBuild(temps, 'board', l10n.deviceTempBoard, unit: '°C'),
-      SignalReading.tryBuild(temps, 'hottest', l10n.deviceTempHottest, unit: '°C'),
+      SignalReading.tryBuild(
+        temps,
+        'hottest',
+        l10n.deviceTempHottest,
+        unit: '°C',
+      ),
     ].whereType<SignalReading>().toList();
     if (readings.isEmpty) return const SizedBox.shrink();
 
@@ -724,9 +728,7 @@ class _ControlsCard extends StatelessWidget {
           _SwitchRow(
             label: l10n.deviceCellularRadio,
             value: radioUp,
-            onChanged: busy
-                ? null
-                : (on) => onToggleRadio(on ? 'on' : 'off'),
+            onChanged: busy ? null : (on) => onToggleRadio(on ? 'on' : 'off'),
           ),
           _SwitchRow(
             label: l10n.deviceMobileData,
@@ -872,8 +874,7 @@ class _SystemCard extends StatelessWidget {
           l10n.deviceFirmware: (info['fw'] ?? '—').toString(),
           l10n.deviceKernel: (info['kernel'] ?? '—').toString(),
           l10n.deviceUptime: _uptime(_int(info['uptime'])),
-          if (cpu != null)
-            l10n.deviceCpuCores: '${_int(cpu['n'])}',
+          if (cpu != null) l10n.deviceCpuCores: '${_int(cpu['n'])}',
           if (mem != null)
             l10n.deviceMemory:
                 '${formatBytes(_int(mem['avail_kb']) * 1024)} / ${formatBytes(_int(mem['total_kb']) * 1024)}',
@@ -929,9 +930,7 @@ class _KeyValues extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final visible = entries.entries
-        .where((e) => e.value.isNotEmpty)
-        .toList();
+    final visible = entries.entries.where((e) => e.value.isNotEmpty).toList();
     if (visible.isEmpty) return const SizedBox.shrink();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1030,11 +1029,23 @@ class _QualityChip extends StatelessWidget {
     // Green / amber / red straight from the scheme so it survives dark mode;
     // hand-picked colours are the thing that always ends up unreadable.
     final (background, foreground) = switch (quality) {
-      SignalQuality.excellent => (scheme.primaryContainer, scheme.onPrimaryContainer),
-      SignalQuality.good => (scheme.secondaryContainer, scheme.onSecondaryContainer),
-      SignalQuality.fair => (scheme.tertiaryContainer, scheme.onTertiaryContainer),
+      SignalQuality.excellent => (
+        scheme.primaryContainer,
+        scheme.onPrimaryContainer,
+      ),
+      SignalQuality.good => (
+        scheme.secondaryContainer,
+        scheme.onSecondaryContainer,
+      ),
+      SignalQuality.fair => (
+        scheme.tertiaryContainer,
+        scheme.onTertiaryContainer,
+      ),
       SignalQuality.poor => (scheme.errorContainer, scheme.onErrorContainer),
-      SignalQuality.unknown => (scheme.surfaceContainerHighest, scheme.onSurfaceVariant),
+      SignalQuality.unknown => (
+        scheme.surfaceContainerHighest,
+        scheme.onSurfaceVariant,
+      ),
     };
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -1068,7 +1079,9 @@ class _SwitchRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(child: Text(label, style: LuciTextStyles.detailLabel(context))),
+        Expanded(
+          child: Text(label, style: LuciTextStyles.detailLabel(context)),
+        ),
         Switch(value: value, onChanged: onChanged),
       ],
     );
