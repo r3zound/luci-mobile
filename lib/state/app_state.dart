@@ -1202,6 +1202,31 @@ class AppState extends ChangeNotifier {
         }
       }
 
+      // Vendor ubus objects can report the real core count. The GL.iNet table
+      // above is a hardcoded model lookup, so on any other router `cpuCores`
+      // stays null and the dashboard divides the 1-minute load by nothing:
+      // 4.4 becomes 437% and clamps to a flat 100%.
+      Map<String, dynamic>? mu300Data;
+      try {
+        final raw = await _apiService?.call(
+          ip,
+          sysauth,
+          useHttps,
+          object: 'mu300dash',
+          method: 'sysinfo',
+          params: const {},
+        );
+        if (raw is List && raw.length > 1 && raw[0] == 0) {
+          final parsed = raw[1];
+          if (parsed is Map<String, dynamic>) {
+            mu300Data = parsed;
+          }
+        }
+      } catch (error) {
+        // Routers without this object simply have no extra data to show.
+        Logger.debug('mu300dash supplementary fetch skipped: $error');
+      }
+
       if (token != _sessionToken) return;
 
       _dashboardData = {
@@ -1216,6 +1241,7 @@ class AppState extends ChangeNotifier {
         'uciWirelessConfig': uciWirelessConfig,
         'wireguard': wireguardData,
         'glinet': ?glInetData,
+        'mu300': ?mu300Data,
         '_lastUpdated':
             DateTime.now().millisecondsSinceEpoch, // Force UI updates
       };

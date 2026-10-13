@@ -6,6 +6,7 @@ import 'package:luci_mobile/main.dart';
 import 'package:luci_mobile/navigation/luci_tab.dart';
 import 'package:luci_mobile/screens/clients_screen.dart';
 import 'package:luci_mobile/screens/dashboard_screen.dart';
+import 'package:luci_mobile/screens/device_screen.dart';
 import 'package:luci_mobile/screens/insights_screen.dart';
 import 'package:luci_mobile/screens/network_screen.dart';
 import 'package:luci_mobile/screens/settings_screen.dart';
@@ -57,6 +58,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     ),
     LuciTab.clients => const ClientsScreen(),
     LuciTab.insights => const InsightsScreen(),
+    LuciTab.device => const DeviceScreen(),
     LuciTab.settings => const SettingsScreen(),
   };
 
@@ -93,6 +95,14 @@ class _MainScreenState extends ConsumerState<MainScreen> {
         filled: Icons.monitor_heart,
         outlined: Icons.monitor_heart_outlined,
         label: l10n.insights,
+      ),
+      // A SIM card, because everything on this tab is about the modem:
+      // cellular measurements, band locks, radio power. On a router with no
+      // cellular hardware the screen says so rather than showing zeros.
+      LuciTab.device => (
+        filled: Icons.sim_card,
+        outlined: Icons.sim_card_outlined,
+        label: l10n.device,
       ),
       LuciTab.settings => (
         filled: Icons.settings,

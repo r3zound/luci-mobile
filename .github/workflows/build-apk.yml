@@ -1,0 +1,119 @@
+name: build-apk
+
+# Builds the Android APK on GitHub's runners, which ship a complete Android
+# SDK and NDK. That matters here: a local build on this machine stalled on
+# `sdkmanager` failing to extract `android-ndk-r28c` (AGP resolves the NDK at
+# *configuration* time, because android/app/build.gradle.kts pins
+# ndkVersion = "28.2.13676358", so nothing builds until it is present).
+#
+# Two build flavours:
+#   debug   - big, but installs on any device, no signing setup at all
+#   release - minified + shrunk, signed with a THROWAWAY key generated here
+#
+# The release key does not exist anywhere else and is not backed up. The APK is
+# fine for sideloading and for replacing a previous build of *this same* run,
+# but every new run produces a different key - so an APK from one run cannot
+# upgrade an APK from another. Set KEYSTORE_B64/KEYSTORE_PASSWORD/... as repo
+# secrets to sign with something stable instead.
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: build-apk-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      # Pinned to the exact toolchain the changes were validated against:
+      # Dart 3.13.5. The project's pubspec asks for sdk ^3.8.1, so anything
+      # from 3.32.5 up satisfies it, but only 3.47.7 has actually been run.
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.7'
+          channel: stable
+          cache: true
+
+      - name: Toolchain banner
+        run: |
+          flutter --version
+          java -version
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          ls "$ANDROID_HOME/ndk" || echo "no NDK preinstalled - AGP will fetch its own"
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Static analysis
+        run: flutter analyze --no-pub lib
+
+      # Debug first: it is the one most likely to be installed on a device
+      # already running another build, and it needs no keystore at all.
+      - name: Build debug APK
+        run: flutter build apk --debug
+
+      # Always generated, even when a real keystore secret exists: the secret
+      # path overwrites the file a few lines later, and a step-level `if:` on
+      # $GITHUB_ENV values is read before that write lands.
+      - name: Generate throwaway release keystore
+        run: |
+          keytool -genkeypair -v \
+            -keystore "$RUNNER_TEMP/release.keystore" \
+            -storepass ci -keypass ci -alias ci \
+            -keyalg RSA -keysize 2048 -validity 10000 \
+            -dname "CN=CI Throwaway, OU=Fork Build, O=r3zound, C=US"
+          echo "RELEASE_KEYSTORE=$RUNNER_TEMP/release.keystore" >> "$GITHUB_ENV"
+
+      - name: Build release APK
+        run: |
+          if [ -n "${{ secrets.KEYSTORE_B64 }}" ]; then
+            echo "${{ secrets.KEYSTORE_B64 }}" | base64 -d > "$RUNNER_TEMP/release.keystore"
+            echo "RELEASE_KEYSTORE=$RUNNER_TEMP/release.keystore" >> "$GITHUB_ENV"
+            {
+              echo "storeFile=$RUNNER_TEMP/release.keystore"
+              echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}"
+              echo "keyAlias=${{ secrets.KEYSTORE_ALIAS }}"
+              echo "keyPassword=${{ secrets.KEYSTORE_KEY_PASSWORD }}"
+            } > android/key.properties
+            echo "signed with the repository secret keystore"
+          else
+            {
+              echo "storeFile=$RUNNER_TEMP/release.keystore"
+              echo "storePassword=ci"
+              echo "keyAlias=ci"
+              echo "keyPassword=ci"
+            } > android/key.properties
+            echo "signed with a THROWAWAY key generated for this run only"
+          fi
+          flutter build apk --release
+
+      - name: Collect APKs
+        run: |
+          mkdir -p dist
+          find build/app/outputs/flutter-apk -name '*.apk' -exec cp {} dist/ \;
+          ls -la dist/
+          sha256sum dist/*.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: luci-mobile-apk
+          path: dist/*.apk
+          if-no-files-found: error
+          retention-days: 30

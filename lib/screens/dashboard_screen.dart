@@ -702,7 +702,12 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
     final cpuLoad = sysInfo?['load'] as List<dynamic>?;
     final glInetData = appState.dashboardData?['glinet'] as GlInetData?;
-    final cpuCores = glInetData?.cpuCores;
+    // Vendor `sysinfo.cpu.n` is the real core count; the GL.iNet model table
+    // has no entry for anything else, so this is the only way a non-GL router
+    // gets a denominator and a load that is not a flat 100%.
+    final mu300 = appState.dashboardData?['mu300'] as Map<String, dynamic>?;
+    final mu300Cores = (mu300?['cpu'] as Map?)?['n'] as int?;
+    final cpuCores = glInetData?.cpuCores ?? mu300Cores;
     final cpuLoadValue = cpuLoad != null
         ? _formatCpuLoad(
             cpuLoad,

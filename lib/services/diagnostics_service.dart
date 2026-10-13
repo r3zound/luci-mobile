@@ -66,9 +66,24 @@ class DiagnosticsService {
     return _exec(session, tool.path, argsFor(tool, target));
   }
 
+  /// Truncating `dmesg` wrapper, deployed on routers whose kernel ring buffer
+  /// outgrows what `file.exec` will carry.
+  ///
+  /// rpcd answers with a bare `UNKNOWN_ERROR` and no payload at all once a
+  /// command's output outgrows its buffer, which on a long-running embedded
+  /// router happens as soon as the kernel has been logging debug spam for a
+  /// few days. `/bin/dmesg` can be close to a megabyte by then; the last 200
+  /// lines are what a log view shows anyway.
+  static const String _kernelLogWrapper = '/usr/libexec/dmesg-wrap1';
+
   /// Reads the kernel ring buffer.
   Future<DiagnosticResult> kernelLog(RouterSession session) async {
-    return _exec(session, '/bin/dmesg', const []);
+    try {
+      return await _exec(session, _kernelLogWrapper, const []);
+    } on RpcException {
+      // Routers without the wrapper still answer to plain dmesg.
+      return _exec(session, '/bin/dmesg', const []);
+    }
   }
 
   /// Reads the system log.

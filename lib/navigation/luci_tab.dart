@@ -9,6 +9,7 @@ enum LuciTab {
   network,
   clients,
   insights,
+  device,
   settings;
 
   /// Whether this destination stays usable while the router is rebooting.
