@@ -451,7 +451,9 @@ class _LogRow extends StatelessWidget {
     );
   }
 
-  InlineSpan _message(ColorScheme scheme) {
+  /// Built as a [TextSpan] rather than a wider [InlineSpan] because that is
+  /// exactly what `SelectableText.rich` accepts.
+  TextSpan _message(ColorScheme scheme) {
     final text = _displayedText(entry);
     if (hits.isEmpty) return TextSpan(text: text);
 
