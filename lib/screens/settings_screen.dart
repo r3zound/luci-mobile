@@ -15,7 +15,6 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:router_pilot/config/app_config.dart';
 import 'package:router_pilot/screens/manage_routers_screen.dart';
-import 'package:router_pilot/screens/wifi_scan_screen.dart';
 import 'package:router_pilot/utils/http_client_manager.dart';
 import 'package:router_pilot/state/app_state.dart';
 import 'package:router_pilot/l10n/luci_localizations.dart';
@@ -303,19 +302,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 final rebootEnabled = canReboot == true && !isRebooting;
                 return LuciHubSection(
                   tiles: [
-                    LuciHubTile(
-                      icon: Icons.wifi_find,
-                      iconColor: Theme.of(context).colorScheme.primary,
-                      title: context.l10n.wifiScanner,
-                      subtitle: context.l10n.wifiScannerDescription,
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const WifiScanScreen(),
-                          ),
-                        );
-                      },
-                    ),
                     LuciHubTile(
                       icon: Icons.tune,
                       iconColor: Theme.of(context).colorScheme.primary,
