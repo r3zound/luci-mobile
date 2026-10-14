@@ -413,7 +413,6 @@
   "filterLog": "필터",
   "logEmpty": "로그가 비어 있습니다",
   "logUnavailable": "로그를 읽을 수 없습니다",
-  "noMatchingLogLines": "필터와 일치하는 줄이 없습니다",
   "toolPing": "Ping",
   "toolTraceroute": "경로",
   "toolNslookup": "DNS",
@@ -603,5 +602,9 @@
   "deviceReconnecting": "Accepted - the modem is restarting",
   "deviceApplyStarted": "Sent to the router",
   "deviceRadioBusy": "The radio is busy with another operation. Try again in a moment.",
-  "deviceApplyRefused": "The router refused the request"
+  "deviceApplyRefused": "The router refused the request",
+  "logMatches": "{total}개 중 {current}번째 일치",
+  "logOlderMatch": "이전 일치",
+  "logNewerMatch": "이후 일치",
+  "logNoMatches": "일치 없음"
 }

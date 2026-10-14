@@ -413,7 +413,6 @@
   "filterLog": "筛选",
   "logEmpty": "日志为空",
   "logUnavailable": "无法读取日志",
-  "noMatchingLogLines": "没有符合筛选条件的行",
   "toolPing": "Ping",
   "toolTraceroute": "路由",
   "toolNslookup": "DNS",
@@ -603,5 +602,9 @@
   "deviceReconnecting": "已受理 —— 调制解调器正在重启",
   "deviceApplyStarted": "已下发给路由器",
   "deviceRadioBusy": "射频正忙于另一项操作，请稍后重试。",
-  "deviceApplyRefused": "路由器拒绝了该请求"
+  "deviceApplyRefused": "路由器拒绝了该请求",
+  "logMatches": "第 {current} 处，共 {total} 处",
+  "logOlderMatch": "较早的一处",
+  "logNewerMatch": "较新的一处",
+  "logNoMatches": "无命中"
 }

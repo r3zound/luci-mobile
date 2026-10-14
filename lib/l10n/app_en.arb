@@ -715,7 +715,6 @@
   "filterLog": "Filter",
   "logEmpty": "The log is empty",
   "logUnavailable": "Could not read the log",
-  "noMatchingLogLines": "No lines match that filter",
   "toolPing": "Ping",
   "toolTraceroute": "Trace",
   "toolNslookup": "DNS",
@@ -981,5 +980,19 @@
   "deviceReconnecting": "Accepted - the modem is restarting",
   "deviceApplyStarted": "Sent to the router",
   "deviceRadioBusy": "The radio is busy with another operation. Try again in a moment.",
-  "deviceApplyRefused": "The router refused the request"
+  "deviceApplyRefused": "The router refused the request",
+  "logMatches": "Match {current} of {total}",
+  "@logMatches": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "logOlderMatch": "Older match",
+  "logNewerMatch": "Newer match",
+  "logNoMatches": "No matches"
 }

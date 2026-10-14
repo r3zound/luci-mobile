@@ -413,7 +413,6 @@
   "filterLog": "絞り込み",
   "logEmpty": "ログは空です",
   "logUnavailable": "ログを読み取れませんでした",
-  "noMatchingLogLines": "条件に一致する行はありません",
   "toolPing": "Ping",
   "toolTraceroute": "経路",
   "toolNslookup": "DNS",
@@ -603,5 +602,9 @@
   "deviceReconnecting": "Accepted - the modem is restarting",
   "deviceApplyStarted": "Sent to the router",
   "deviceRadioBusy": "The radio is busy with another operation. Try again in a moment.",
-  "deviceApplyRefused": "The router refused the request"
+  "deviceApplyRefused": "The router refused the request",
+  "logMatches": "一致 {current} 件目（全 {total} 件）",
+  "logOlderMatch": "古い一致へ",
+  "logNewerMatch": "新しい一致へ",
+  "logNoMatches": "一致なし"
 }

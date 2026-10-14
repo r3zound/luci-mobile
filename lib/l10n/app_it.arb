@@ -413,7 +413,6 @@
   "filterLog": "Filtra",
   "logEmpty": "Il log è vuoto",
   "logUnavailable": "Impossibile leggere il log",
-  "noMatchingLogLines": "Nessuna riga corrisponde al filtro",
   "toolPing": "Ping",
   "toolTraceroute": "Traccia",
   "toolNslookup": "DNS",
@@ -603,5 +602,9 @@
   "deviceReconnecting": "Accepted - the modem is restarting",
   "deviceApplyStarted": "Sent to the router",
   "deviceRadioBusy": "The radio is busy with another operation. Try again in a moment.",
-  "deviceApplyRefused": "The router refused the request"
+  "deviceApplyRefused": "The router refused the request",
+  "logMatches": "Corrispondenza {current} di {total}",
+  "logOlderMatch": "Corrispondenza precedente",
+  "logNewerMatch": "Corrispondenza successiva",
+  "logNoMatches": "Nessuna corrispondenza"
 }

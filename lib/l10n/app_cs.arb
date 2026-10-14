@@ -413,7 +413,6 @@
   "filterLog": "Filtrovat",
   "logEmpty": "Protokol je prázdný",
   "logUnavailable": "Protokol se nepodařilo načíst",
-  "noMatchingLogLines": "Filtru neodpovídají žádné řádky",
   "toolPing": "Ping",
   "toolTraceroute": "Trasa",
   "toolNslookup": "DNS",
@@ -603,5 +602,9 @@
   "deviceReconnecting": "Accepted - the modem is restarting",
   "deviceApplyStarted": "Sent to the router",
   "deviceRadioBusy": "The radio is busy with another operation. Try again in a moment.",
-  "deviceApplyRefused": "The router refused the request"
+  "deviceApplyRefused": "The router refused the request",
+  "logMatches": "Shoda {current} z {total}",
+  "logOlderMatch": "Starší shoda",
+  "logNewerMatch": "Novější shoda",
+  "logNoMatches": "Žádné shody"
 }

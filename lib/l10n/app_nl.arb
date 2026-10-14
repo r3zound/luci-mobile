@@ -413,7 +413,6 @@
   "filterLog": "Filteren",
   "logEmpty": "Het logboek is leeg",
   "logUnavailable": "Kon het logboek niet lezen",
-  "noMatchingLogLines": "Geen regels komen overeen met het filter",
   "toolPing": "Ping",
   "toolTraceroute": "Route",
   "toolNslookup": "DNS",
@@ -603,5 +602,9 @@
   "deviceReconnecting": "Accepted - the modem is restarting",
   "deviceApplyStarted": "Sent to the router",
   "deviceRadioBusy": "The radio is busy with another operation. Try again in a moment.",
-  "deviceApplyRefused": "The router refused the request"
+  "deviceApplyRefused": "The router refused the request",
+  "logMatches": "Overeenkomst {current} van {total}",
+  "logOlderMatch": "Eerdere overeenkomst",
+  "logNewerMatch": "Nieuwere overeenkomst",
+  "logNoMatches": "Geen overeenkomsten"
 }

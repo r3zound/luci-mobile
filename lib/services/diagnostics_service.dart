@@ -116,6 +116,11 @@ class DiagnosticsService {
       session.useHttps,
       object: 'file',
       method: 'exec',
+      // Never add an `env` key here. rpcd rejects a `file.exec` request that
+      // carries one with PERMISSION_DENIED (code 6) whatever the ACL says, and
+      // the call still works a second later without it - which makes it look
+      // exactly like a permissions problem and sends you off to re-check an
+      // ACL that was never wrong.
       params: {'command': command, 'params': params},
     );
     // `call` has already turned a non-zero ubus status into an RpcException

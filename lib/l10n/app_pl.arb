@@ -413,7 +413,6 @@
   "filterLog": "Filtruj",
   "logEmpty": "Dziennik jest pusty",
   "logUnavailable": "Nie udało się odczytać dziennika",
-  "noMatchingLogLines": "Żadne wiersze nie pasują do filtra",
   "toolPing": "Ping",
   "toolTraceroute": "Trasa",
   "toolNslookup": "DNS",
@@ -603,5 +602,9 @@
   "deviceReconnecting": "Accepted - the modem is restarting",
   "deviceApplyStarted": "Sent to the router",
   "deviceRadioBusy": "The radio is busy with another operation. Try again in a moment.",
-  "deviceApplyRefused": "The router refused the request"
+  "deviceApplyRefused": "The router refused the request",
+  "logMatches": "Dopasowanie {current} z {total}",
+  "logOlderMatch": "Wcześniejsze dopasowanie",
+  "logNewerMatch": "Późniejsze dopasowanie",
+  "logNoMatches": "Brak dopasowań"
 }

@@ -413,7 +413,6 @@
   "filterLog": "Filtern",
   "logEmpty": "Das Protokoll ist leer",
   "logUnavailable": "Protokoll konnte nicht gelesen werden",
-  "noMatchingLogLines": "Keine Zeilen passen zum Filter",
   "toolPing": "Ping",
   "toolTraceroute": "Route",
   "toolNslookup": "DNS",
@@ -603,5 +602,9 @@
   "deviceReconnecting": "Accepted - the modem is restarting",
   "deviceApplyStarted": "Sent to the router",
   "deviceRadioBusy": "The radio is busy with another operation. Try again in a moment.",
-  "deviceApplyRefused": "The router refused the request"
+  "deviceApplyRefused": "The router refused the request",
+  "logMatches": "Treffer {current} von {total}",
+  "logOlderMatch": "Älterer Treffer",
+  "logNewerMatch": "Neuerer Treffer",
+  "logNoMatches": "Keine Treffer"
 }

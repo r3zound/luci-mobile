@@ -413,7 +413,6 @@
   "filterLog": "篩選",
   "logEmpty": "日誌是空的",
   "logUnavailable": "無法讀取日誌",
-  "noMatchingLogLines": "沒有符合篩選條件的行",
   "toolPing": "Ping",
   "toolTraceroute": "路由",
   "toolNslookup": "DNS",
@@ -603,5 +602,9 @@
   "deviceReconnecting": "已受理 —— 數據機正在重新啟動",
   "deviceApplyStarted": "已下發給路由器",
   "deviceRadioBusy": "射頻正忙於另一項操作，請稍後重試。",
-  "deviceApplyRefused": "路由器拒絕了該請求"
+  "deviceApplyRefused": "路由器拒絕了該請求",
+  "logMatches": "第 {current} 處，共 {total} 處",
+  "logOlderMatch": "較早的一處",
+  "logNewerMatch": "較新的一處",
+  "logNoMatches": "無命中"
 }
