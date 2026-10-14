@@ -43,9 +43,6 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
   /// `mu300dash.lock_get`: current locks, supported bands, replay setting.
   Map<String, dynamic>? _lock;
 
-  /// `mu300dash.power_get`: profile, supply, battery, every tunable knob.
-  Map<String, dynamic>? _power;
-
   bool _loading = true;
   bool _applying = false;
 
@@ -71,27 +68,24 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
     }
     if (mounted) setState(() => _loading = true);
 
-    // Three calls in parallel: `status` is the vendor's own combined snapshot
-    // and is the expensive one, the other two are cached reads that answer
-    // instantly. Nothing here blocks the others.
+    // Two calls in parallel: `status` is the vendor's own combined snapshot and
+    // is the expensive one, the lock read is cached and answers instantly.
+    // Nothing here blocks the other.
     final results = await Future.wait([
       service.status(session),
       service.bands(session),
-      service.power(session),
     ]);
     if (!mounted) return;
 
     final status = results[0];
     final lock = results[1];
-    final power = results[2];
 
     setState(() {
       _status = status;
       _lock = lock;
-      _power = power;
       _loading = false;
       // Only conclude "unsupported" when the primary object is absent; a
-      // transient failure of the two secondary reads must not blank the page.
+      // transient failure of the lock read must not blank the page.
       if (status == null) _unsupported = true;
       if (reapplyLocks) _picked.clear();
     });
@@ -219,19 +213,22 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
                 child: Center(child: CircularProgressIndicator()),
               ),
 
-            if (sig != null) ...[
-              _CellularCard(sig: sig),
+            // Cellular first: on this hardware it is the only thing the stock
+            // LuCI cannot show at all. Its uplink is the same subject, so it
+            // rides along in the same card.
+            if (sig != null || info != null) ...[
+              _CellularCard(sig: sig, info: info),
               const SizedBox(height: LuciSpacing.md),
             ],
-            if (info != null) _TemperaturesCard(info: info),
-            if (info != null) _WanCard(info: info),
             if (info != null) _WifiCard(info: info),
-            if (_power != null) _PowerCard(power: _power!),
-            if (_lock != null && info != null) ...[
+            if (info != null) _SystemCard(info: info),
+            // Last, and deliberately so: everything above is a reading, this
+            // card is the only part that writes, and a band lock restarts the
+            // modem. Nothing to tap by accident on the way to the numbers.
+            if (_lock != null) ...[
               const SizedBox(height: LuciSpacing.md),
               _ControlsCard(
                 lock: _lock!,
-                info: info,
                 picked: _picked,
                 busy: _applying,
                 onToggleBand: (kind, band) => setState(() {
@@ -241,12 +238,8 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
                 onPickAutomatic: (kind) => setState(() => _picked.remove(kind)),
                 onApplyBands: (kind) => _applyBands(kind),
                 onMode: (mode) => _applyMode(mode),
-                onToggleRadio: (arg) => _applyRadio(arg),
-                onToggleWifi: (arg) => _applyWifi(arg),
-                onToggleData: (arg) => _applyData(arg),
               ),
             ],
-            if (info != null) _SystemCard(info: info),
           ],
         ),
       ),
@@ -298,51 +291,6 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
     );
   }
 
-  Future<void> _applyRadio(String arg) async {
-    final session = ref.read(sessionProvider);
-    final service = ref.read(mu300ServiceProvider);
-    if (session == null || service == null) return;
-    final l10n = context.l10n;
-    final turningOff = arg == 'off';
-    await _confirmAndApply(
-      turningOff ? l10n.deviceRadioOffTitle : l10n.deviceRadioOnTitle,
-      turningOff ? l10n.deviceRadioOffBody : l10n.deviceRadioOnBody,
-      () => service.act(session, op: 'radio', arg: arg),
-    );
-  }
-
-  Future<void> _applyWifi(String arg) async {
-    final session = ref.read(sessionProvider);
-    final service = ref.read(mu300ServiceProvider);
-    if (session == null || service == null) return;
-    setState(() => _applying = true);
-    final result = await service.act(session, op: 'wifi', arg: arg);
-    if (!mounted) return;
-    setState(() => _applying = false);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          result.accepted
-              ? context.l10n.deviceApplyStarted
-              : (result.message ?? context.l10n.deviceApplyRefused),
-        ),
-      ),
-    );
-    await _load(reapplyLocks: true);
-  }
-
-  Future<void> _applyData(String arg) async {
-    final session = ref.read(sessionProvider);
-    final service = ref.read(mu300ServiceProvider);
-    if (session == null || service == null) return;
-    final l10n = context.l10n;
-    await _confirmAndApply(
-      arg == 'down' ? l10n.deviceDataOffTitle : l10n.deviceDataOnTitle,
-      arg == 'down' ? l10n.deviceDataOffBody : l10n.deviceDataOnBody,
-      () => service.act(session, op: 'data', arg: arg),
-    );
-  }
-
   String _modeLabel(String mode) => switch (mode) {
     '4g' => context.l10n.deviceMode4g,
     'sa' => context.l10n.deviceModeSa,
@@ -351,20 +299,33 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
   };
 }
 
-/// Registration and radio measurements, the thing stock LuCI cannot show.
+/// Registration, radio measurements and the uplink - the things stock LuCI
+/// cannot show.
+///
+/// The uplink used to be a card of its own, but it is the same subject as the
+/// measurements below it: two cards meant two titles, two paddings and a gap,
+/// all for one idea, and they pushed everything else down the page.
 class _CellularCard extends StatelessWidget {
-  const _CellularCard({required this.sig});
+  const _CellularCard({this.sig, this.info});
 
-  final Map<String, dynamic> sig;
+  /// `mu300dash.signal`: the measurements and the registration state.
+  final Map<String, dynamic>? sig;
+
+  /// `mu300dash.status`: the uplink half of this card.
+  final Map<String, dynamic>? info;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final measurements = _sub(sig, 'sig');
     final quality = SignalReading.grade(measurements);
-    final source = (sig['sig_src'] ?? '').toString();
+    final source = (sig?['sig_src'] ?? '').toString();
     final reg = _sub(sig, 'reg5g') ?? _sub(sig, 'reg');
     final lte = _sub(sig, 'lte');
+    final wan = _sub(info, 'wan');
+    final mobile = _sub(_sub(info, 'net'), 'mobile');
+
+    if (sig == null && wan == null) return const SizedBox.shrink();
 
     final readings = <SignalReading?>[
       SignalReading.tryBuild(measurements, 'rsrp', 'RSRP', unit: 'dBm'),
@@ -398,46 +359,84 @@ class _CellularCard extends StatelessWidget {
                     style: LuciTextStyles.cardTitle(context),
                   ),
                 ),
-                _QualityChip(quality: quality),
+                if (sig != null) _QualityChip(quality: quality),
               ],
             ),
-            const SizedBox(height: LuciSpacing.xs),
-            Text(
-              signalQualityText(context, quality),
-              style: LuciTextStyles.cardSubtitle(context),
-            ),
-            const SizedBox(height: LuciSpacing.md),
-            _ReadingGrid(readings: readings),
-            if (lte != null) ...[
-              const SizedBox(height: LuciSpacing.md),
-              Text('LTE anchor', style: LuciTextStyles.cardSubtitle(context)),
+            if (sig != null) ...[
               const SizedBox(height: LuciSpacing.xs),
-              _ReadingGrid(
-                readings: [
-                  SignalReading.tryBuild(lte, 'rsrp', 'RSRP', unit: 'dBm'),
-                  SignalReading.tryBuild(lte, 'rsrq', 'RSRQ', unit: 'dB'),
-                  SignalReading.tryBuild(lte, 'sinr', 'SINR', unit: 'dB'),
-                  SignalReading.tryBuild(lte, 'band', 'LTE band'),
-                  SignalReading.tryBuild(lte, 'arfcn', 'ARFCN'),
-                  SignalReading.tryBuild(lte, 'pci', 'PCI'),
-                ].whereType<SignalReading>().toList(),
-              ),
-            ],
-            if (reg != null) ...[
-              const SizedBox(height: LuciSpacing.md),
               Text(
-                l10n.deviceRegistration,
+                signalQualityText(context, quality),
                 style: LuciTextStyles.cardSubtitle(context),
               ),
+              const SizedBox(height: LuciSpacing.md),
+              _ReadingGrid(readings: readings),
+              if (lte != null) ...[
+                const SizedBox(height: LuciSpacing.md),
+                Text('LTE anchor', style: LuciTextStyles.cardSubtitle(context)),
+                const SizedBox(height: LuciSpacing.xs),
+                _ReadingGrid(
+                  readings: [
+                    SignalReading.tryBuild(lte, 'rsrp', 'RSRP', unit: 'dBm'),
+                    SignalReading.tryBuild(lte, 'rsrq', 'RSRQ', unit: 'dB'),
+                    SignalReading.tryBuild(lte, 'sinr', 'SINR', unit: 'dB'),
+                    SignalReading.tryBuild(lte, 'band', 'LTE band'),
+                    SignalReading.tryBuild(lte, 'arfcn', 'ARFCN'),
+                    SignalReading.tryBuild(lte, 'pci', 'PCI'),
+                  ].whereType<SignalReading>().toList(),
+                ),
+              ],
+              if (reg != null) ...[
+                const SizedBox(height: LuciSpacing.md),
+                Text(
+                  l10n.deviceRegistration,
+                  style: LuciTextStyles.cardSubtitle(context),
+                ),
+                const SizedBox(height: LuciSpacing.xs),
+                _KeyValues(
+                  entries: {
+                    l10n.deviceRegistered: _registrationState(reg['stat']),
+                    'TAC': (reg['tac'] ?? '').toString(),
+                    'CID': (reg['cid'] ?? '').toString(),
+                    'ACT': (reg['act'] ?? '').toString(),
+                  },
+                ),
+              ],
+            ],
+            if (wan != null) ...[
+              // A rule rather than a second card: the uplink is the other half
+              // of the same subject, not a new one.
+              if (sig != null) ...[
+                const SizedBox(height: LuciSpacing.md),
+                const Divider(height: 1),
+              ],
+              const SizedBox(height: LuciSpacing.md),
+              Text(l10n.deviceWan, style: LuciTextStyles.cardSubtitle(context)),
               const SizedBox(height: LuciSpacing.xs),
               _KeyValues(
                 entries: {
-                  l10n.deviceRegistered: _registrationState(reg['stat']),
-                  'TAC': (reg['tac'] ?? '').toString(),
-                  'CID': (reg['cid'] ?? '').toString(),
-                  'ACT': (reg['act'] ?? '').toString(),
+                  l10n.status: wan['up'] == 1 ? l10n.up : l10n.down,
+                  'Protocol': (wan['proto'] ?? '—').toString(),
+                  'APN': (wan['apn'] ?? '—').toString(),
+                  'IPv4': (wan['ip4'] ?? '—').toString(),
+                  'IPv6': (wan['ip6'] ?? '—').toString(),
+                  'DNS': (wan['dns'] ?? '—').toString(),
+                  l10n.deviceUptime: _uptime(_int(wan['uptime'])),
                 },
               ),
+              if (mobile != null) ...[
+                const SizedBox(height: LuciSpacing.md),
+                Text(
+                  l10n.deviceDataUsage,
+                  style: LuciTextStyles.cardSubtitle(context),
+                ),
+                const SizedBox(height: LuciSpacing.xs),
+                _KeyValues(
+                  entries: {
+                    l10n.download: formatBytes(_int(mobile['rx'])),
+                    l10n.upload: formatBytes(_int(mobile['tx'])),
+                  },
+                ),
+              ],
             ],
           ],
         ),
@@ -454,89 +453,6 @@ class _CellularCard extends StatelessWidget {
     null => '',
     _ => stat.toString(),
   };
-}
-
-/// The five sensors the vendor reads. `hottest` is the one that matters - it
-/// is the value its thermal guard acts on.
-class _TemperaturesCard extends StatelessWidget {
-  const _TemperaturesCard({required this.info});
-
-  final Map<String, dynamic> info;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    final temps = _sub(info, 'temps');
-    if (temps == null || temps.isEmpty) return const SizedBox.shrink();
-
-    final readings = <SignalReading?>[
-      SignalReading.tryBuild(temps, 'soc', l10n.deviceTempSoc, unit: '°C'),
-      SignalReading.tryBuild(temps, 'cpu', l10n.deviceTempCpu, unit: '°C'),
-      SignalReading.tryBuild(temps, 'modem', l10n.deviceTempModem, unit: '°C'),
-      SignalReading.tryBuild(temps, 'board', l10n.deviceTempBoard, unit: '°C'),
-      SignalReading.tryBuild(
-        temps,
-        'hottest',
-        l10n.deviceTempHottest,
-        unit: '°C',
-      ),
-    ].whereType<SignalReading>().toList();
-    if (readings.isEmpty) return const SizedBox.shrink();
-
-    return _SectionCard(
-      title: l10n.deviceTemperatures,
-      child: _ReadingGrid(readings: readings),
-    );
-  }
-}
-
-/// The cellular uplink, plus the counters the vendor keeps per interface.
-class _WanCard extends StatelessWidget {
-  const _WanCard({required this.info});
-
-  final Map<String, dynamic> info;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    final wan = _sub(info, 'wan');
-    if (wan == null) return const SizedBox.shrink();
-    final mobile = _sub(_sub(info, 'net'), 'mobile');
-
-    return _SectionCard(
-      title: l10n.deviceWan,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _KeyValues(
-            entries: {
-              l10n.status: wan['up'] == 1 ? l10n.up : l10n.down,
-              'Protocol': (wan['proto'] ?? '—').toString(),
-              'APN': (wan['apn'] ?? '—').toString(),
-              'IPv4': (wan['ip4'] ?? '—').toString(),
-              'IPv6': (wan['ip6'] ?? '—').toString(),
-              'DNS': (wan['dns'] ?? '—').toString(),
-              l10n.deviceUptime: _uptime(_int(wan['uptime'])),
-            },
-          ),
-          if (mobile != null) ...[
-            const SizedBox(height: LuciSpacing.md),
-            Text(
-              l10n.deviceDataUsage,
-              style: LuciTextStyles.cardSubtitle(context),
-            ),
-            const SizedBox(height: LuciSpacing.xs),
-            _KeyValues(
-              entries: {
-                l10n.download: formatBytes(_int(mobile['rx'])),
-                l10n.upload: formatBytes(_int(mobile['tx'])),
-              },
-            ),
-          ],
-        ],
-      ),
-    );
-  }
 }
 
 /// The AP, as the vendor describes it. `clients_n` is a count because
@@ -581,80 +497,32 @@ class _WifiCard extends StatelessWidget {
   };
 }
 
-class _PowerCard extends StatelessWidget {
-  const _PowerCard({required this.power});
-
-  final Map<String, dynamic> power;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    final battery = _sub(power, 'battery');
-    final charger = _sub(power, 'charger');
-
-    return _SectionCard(
-      title: l10n.devicePower,
-      child: _KeyValues(
-        entries: {
-          l10n.deviceState: (power['state'] ?? '—').toString(),
-          l10n.deviceProfile: (power['profile'] ?? '—').toString(),
-          l10n.deviceSupply: (power['supply'] ?? '—').toString(),
-          if (battery != null) ...{
-            l10n.deviceBattery: '${_int(battery['capacity'])} %',
-            l10n.deviceChargeState: (battery['status'] ?? '—').toString(),
-            l10n.deviceVoltage: '${_int(battery['mv'])} mV',
-          },
-          if (charger != null)
-            l10n.deviceCharger: (charger['status'] ?? '—').toString(),
-        },
-      ),
-    );
-  }
-}
-
 /// Everything that writes. Split out so the card stays readable: each block
 /// states what it will do before it does it.
 class _ControlsCard extends StatelessWidget {
   const _ControlsCard({
     required this.lock,
-    required this.info,
     required this.picked,
     required this.busy,
     required this.onToggleBand,
     required this.onPickAutomatic,
     required this.onApplyBands,
     required this.onMode,
-    required this.onToggleRadio,
-    required this.onToggleWifi,
-    required this.onToggleData,
   });
 
   final Map<String, dynamic> lock;
-  final Map<String, dynamic> info;
   final Map<String, Set<int>> picked;
   final bool busy;
   final void Function(String kind, int band) onToggleBand;
   final void Function(String kind) onPickAutomatic;
   final void Function(String kind) onApplyBands;
   final void Function(String mode) onMode;
-  final void Function(String arg) onToggleRadio;
-  final void Function(String arg) onToggleWifi;
-  final void Function(String arg) onToggleData;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final mode = _sub(lock, 'mode');
     final currentMode = (mode?['label'] ?? 'auto').toString();
-
-    // Switch states come from the vendor's own snapshot, not from local
-    // optimism: `wifi.up` is what hostapd reports, `modem.alive` is whether
-    // the AT daemon still answers, `modem.data_paused` is the data toggle.
-    // A switch that disagrees with the router is worse than no switch.
-    final wifiUp = _sub(info, 'wifi')?['up'] == 1;
-    final modem = _sub(info, 'modem');
-    final radioUp = modem?['alive'] == 1;
-    final dataUp = modem != null && modem['data_paused'] != 1;
 
     return _SectionCard(
       title: l10n.deviceControls,
@@ -721,24 +589,6 @@ class _ControlsCard extends StatelessWidget {
             onApply: () => onApplyBands('lte'),
             automaticLabel: l10n.deviceAutomatic,
             applyLabel: l10n.deviceApply,
-          ),
-          const SizedBox(height: LuciSpacing.sm),
-
-          // ---- switches -----------------------------------------------------
-          _SwitchRow(
-            label: l10n.deviceCellularRadio,
-            value: radioUp,
-            onChanged: busy ? null : (on) => onToggleRadio(on ? 'on' : 'off'),
-          ),
-          _SwitchRow(
-            label: l10n.deviceMobileData,
-            value: dataUp,
-            onChanged: busy ? null : (on) => onToggleData(on ? 'up' : 'down'),
-          ),
-          _SwitchRow(
-            label: l10n.deviceWifi,
-            value: wifiUp,
-            onChanged: busy ? null : (on) => onToggleWifi(on ? 'on' : 'off'),
           ),
         ],
       ),
@@ -852,7 +702,11 @@ class _BandBlock extends StatelessWidget {
   }
 }
 
-/// Firmware, uptime, CPU, memory, storage.
+/// Firmware, uptime, CPU, memory, storage and the temperatures.
+///
+/// The five sensors were a card of their own, but they are readings about this
+/// same box: their own title, padding and gap cost most of a screenful for five
+/// numbers, and pushed the actual controls below the fold.
 class _SystemCard extends StatelessWidget {
   const _SystemCard({required this.info});
 
@@ -864,24 +718,52 @@ class _SystemCard extends StatelessWidget {
     final cpu = _sub(info, 'cpu');
     final mem = _sub(info, 'mem');
     final storage = _sub(info, 'storage');
+    final temps = _sub(info, 'temps');
+
+    final sensors = <SignalReading?>[
+      SignalReading.tryBuild(temps, 'soc', l10n.deviceTempSoc, unit: '°C'),
+      SignalReading.tryBuild(temps, 'cpu', l10n.deviceTempCpu, unit: '°C'),
+      SignalReading.tryBuild(temps, 'modem', l10n.deviceTempModem, unit: '°C'),
+      SignalReading.tryBuild(temps, 'board', l10n.deviceTempBoard, unit: '°C'),
+      SignalReading.tryBuild(
+        temps,
+        'hottest',
+        l10n.deviceTempHottest,
+        unit: '°C',
+      ),
+    ].whereType<SignalReading>().toList();
 
     return _SectionCard(
       title: l10n.deviceSystem,
-      child: _KeyValues(
-        entries: {
-          l10n.deviceHost: (info['host'] ?? '—').toString(),
-          l10n.deviceModel: (info['model'] ?? '—').toString(),
-          l10n.deviceFirmware: (info['fw'] ?? '—').toString(),
-          l10n.deviceKernel: (info['kernel'] ?? '—').toString(),
-          l10n.deviceUptime: _uptime(_int(info['uptime'])),
-          if (cpu != null) l10n.deviceCpuCores: '${_int(cpu['n'])}',
-          if (mem != null)
-            l10n.deviceMemory:
-                '${formatBytes(_int(mem['avail_kb']) * 1024)} / ${formatBytes(_int(mem['total_kb']) * 1024)}',
-          if (storage != null)
-            l10n.deviceStorage:
-                '${formatBytes(_int(storage['used_kb']) * 1024)} / ${formatBytes(_int(storage['total_kb']) * 1024)}',
-        },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _KeyValues(
+            entries: {
+              l10n.deviceHost: (info['host'] ?? '—').toString(),
+              l10n.deviceModel: (info['model'] ?? '—').toString(),
+              l10n.deviceFirmware: (info['fw'] ?? '—').toString(),
+              l10n.deviceKernel: (info['kernel'] ?? '—').toString(),
+              l10n.deviceUptime: _uptime(_int(info['uptime'])),
+              if (cpu != null) l10n.deviceCpuCores: '${_int(cpu['n'])}',
+              if (mem != null)
+                l10n.deviceMemory:
+                    '${formatBytes(_int(mem['avail_kb']) * 1024)} / ${formatBytes(_int(mem['total_kb']) * 1024)}',
+              if (storage != null)
+                l10n.deviceStorage:
+                    '${formatBytes(_int(storage['used_kb']) * 1024)} / ${formatBytes(_int(storage['total_kb']) * 1024)}',
+            },
+          ),
+          if (sensors.isNotEmpty) ...[
+            const SizedBox(height: LuciSpacing.md),
+            Text(
+              l10n.deviceTemperatures,
+              style: LuciTextStyles.cardSubtitle(context),
+            ),
+            const SizedBox(height: LuciSpacing.xs),
+            _ReadingGrid(readings: sensors),
+          ],
+        ],
       ),
     );
   }
@@ -1060,30 +942,6 @@ class _QualityChip extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-    );
-  }
-}
-
-class _SwitchRow extends StatelessWidget {
-  const _SwitchRow({
-    required this.label,
-    required this.value,
-    required this.onChanged,
-  });
-
-  final String label;
-  final bool value;
-  final void Function(bool)? onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Text(label, style: LuciTextStyles.detailLabel(context)),
-        ),
-        Switch(value: value, onChanged: onChanged),
-      ],
     );
   }
 }
