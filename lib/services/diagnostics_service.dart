@@ -5,15 +5,21 @@ import 'package:luci_mobile/services/interfaces/api_service_interface.dart';
 import 'package:luci_mobile/state/router_session.dart';
 
 /// A network tool the router can run on the user's behalf.
+///
+/// Each tool carries more than one path because distributions disagree about
+/// where these live: a minimal image has BusyBox's `/bin/traceroute` and no
+/// `/usr/bin` one at all, while a full one ships the real traceroute under
+/// `/usr/bin`. Stock LuCI grants both spellings for exactly that reason.
 enum DiagnosticTool {
-  ping('/bin/ping'),
-  traceroute('/usr/bin/traceroute'),
-  nslookup('/usr/bin/nslookup');
+  ping(['/bin/ping', '/usr/bin/ping']),
+  traceroute(['/usr/bin/traceroute', '/bin/traceroute']),
+  nslookup(['/usr/bin/nslookup', '/bin/nslookup']);
 
-  const DiagnosticTool(this.path);
+  const DiagnosticTool(this.paths);
 
-  /// Absolute path, because rpcd's `file.exec` resolves nothing.
-  final String path;
+  /// Absolute paths to try in order, because rpcd's `file.exec` resolves
+  /// nothing and an absent path answers NOT_FOUND rather than running anything.
+  final List<String> paths;
 }
 
 @immutable
@@ -63,7 +69,20 @@ class DiagnosticsService {
     DiagnosticTool tool,
     String target,
   ) async {
-    return _exec(session, tool.path, argsFor(tool, target));
+    final args = argsFor(tool, target);
+    RpcException? refused;
+    for (final path in tool.paths) {
+      try {
+        return await _exec(session, path, args);
+      } on RpcException catch (error) {
+        // NOT_FOUND means that name is not installed here and
+        // PERMISSION_DENIED means the router's ACL lists the other spelling;
+        // both are worth trying the next candidate for. The last one is what
+        // the caller hears about if they all fail.
+        refused = error;
+      }
+    }
+    throw refused!;
   }
 
   /// Truncating `dmesg` wrapper, deployed on routers whose kernel ring buffer
