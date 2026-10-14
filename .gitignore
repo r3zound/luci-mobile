@@ -143,3 +143,7 @@ GoogleService-Info.plist
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+# Source artwork supplied out-of-band; it carries a third-party watermark, so
+# only the generated launcher/store assets are committed.
+/icon.png
