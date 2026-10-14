@@ -493,15 +493,17 @@ void main() {
     // See AppRulePrefix: a legacy section name must stay removable, otherwise
     // lifting the block would only disable it and leave it on the router.
     test('a legacy block rule is still owned and deleted', () {
+      // Flat, like the real /etc/config/firewall: sections sit at the top level
+      // and are told apart by .type. Nesting them under a 'rule' key would
+      // make findBlockRule find nothing at all.
       const legacy = <String, dynamic>{
-        'rule': {
-          'luci_mobile_block_aabbcc112233': {
-            '.type': 'rule',
-            'name': 'Block laptop (LuCI Mobile)',
-            'src': 'lan',
-            'src_mac': 'AA:BB:CC:11:22:33',
-            'target': 'REJECT',
-          },
+        'luci_mobile_block_aabbcc112233': {
+          '.type': 'rule',
+          '.name': 'luci_mobile_block_aabbcc112233',
+          'name': 'Block laptop (LuCI Mobile)',
+          'src_mac': 'AA:BB:CC:11:22:33',
+          'target': 'REJECT',
+          'enabled': '1',
         },
       };
       final rule = ClientConfigPlanner.findBlockRule(legacy, _mac);
