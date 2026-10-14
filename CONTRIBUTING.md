@@ -320,8 +320,7 @@ We follow [Semantic Versioning](https://semver.org/):
 
 - Check the documentation first
 - Search existing issues
-- Ask questions in discussions
-- Join our community channels
+- Open an issue using the Bug report or Feature request template
 
 ### Mentorship
 

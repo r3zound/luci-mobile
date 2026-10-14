@@ -1,5 +1,4 @@
+# Discussions are not enabled on this repository, so there is no contact link
+# to offer here. Reporters pick one of the two templates in this directory and
+# blank issues stay disabled.
 blank_issues_enabled: false
-contact_links:
-  - name: 💬 Discussions
-    url: https://github.com/r3zound/router-pilot/discussions
-    about: For general questions and discussions.
