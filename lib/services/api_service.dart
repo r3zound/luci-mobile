@@ -301,6 +301,30 @@ String? _extractSysauthToken(Headers headers) {
   return null;
 }
 
+/// Parses the LAN bridge forwarding table into MAC -> interface.
+///
+/// A learned client line reads `<mac> dev <ifname> master br-lan`. The bridge's
+/// own addresses are marked `permanent` or `self` and are skipped: they belong
+/// to the router rather than to a client, and calling one of them a client link
+/// would put a type on the router's own row.
+///
+/// Keys are normalized, matching the rest of the client pipeline.
+Map<String, String> parseLanBridgeFdb(String stdout) {
+  final learned = <String, String>{};
+  final line = RegExp(
+    r'^([0-9A-Fa-f]{2}(?::[0-9A-Fa-f]{2}){5})\s+dev\s+(\S+)\s+master\b',
+  );
+  for (final raw in stdout.split('\n')) {
+    final text = raw.trim();
+    if (text.isEmpty) continue;
+    if (text.contains('permanent') || text.contains('self')) continue;
+    final match = line.firstMatch(text);
+    if (match == null) continue;
+    learned[StationInfo.normalizeMac(match.group(1)!)] = match.group(2)!;
+  }
+  return learned;
+}
+
 class RealApiService implements IApiService {
   final HttpClientManager _httpClientManager = HttpClientManager();
 
@@ -1505,6 +1529,43 @@ class RealApiService implements IApiService {
       for (final entry in data.entries)
         StationInfo.normalizeMac(entry.key.toString()): entry.value,
     };
+  }
+
+  /// Read-only wrapper that prints the LAN bridge forwarding table.
+  ///
+  /// An absolute path, because rpcd's `file.exec` resolves nothing, and a fixed
+  /// script rather than `/usr/sbin/bridge` because an ACL entry names an
+  /// executable without constraining its arguments - granting `bridge` would
+  /// also grant `bridge fdb del`.
+  static const String _lanFdbWrapper = '/usr/libexec/lan-fdb';
+
+  @override
+  Future<Map<String, String>> lanBridgeFdb(
+    String ipAddress,
+    String sysauth,
+    bool useHttps, {
+    BuildContext? context,
+  }) async {
+    final result = _requireRpcSuccess(
+      await callWithContext(
+        ipAddress,
+        sysauth,
+        useHttps,
+        object: 'file',
+        method: 'exec',
+        // Never add an `env` key: rpcd answers a `file.exec` carrying one with
+        // PERMISSION_DENIED whatever the ACL grants, which reads exactly like a
+        // permission problem and sends you off to check an ACL that is fine.
+        params: {'command': _lanFdbWrapper, 'params': const <String>[]},
+        context: context,
+      ),
+      'file.exec',
+    );
+    final data = result.length > 1 ? result[1] : null;
+    if (data is! Map) return const <String, String>{};
+    final stdout = data['stdout'];
+    if (stdout is! String) return const <String, String>{};
+    return parseLanBridgeFdb(stdout);
   }
 
   @override

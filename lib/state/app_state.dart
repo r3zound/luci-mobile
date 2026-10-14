@@ -3212,6 +3212,11 @@ class AppState extends ChangeNotifier {
         _authService!.sysauth!,
         activeHttps,
       );
+      final fdbFuture = _fetchLanFdb(
+        activeIp,
+        _authService!.sysauth!,
+        activeHttps,
+      );
 
       final wireless = <String>{};
       Object? wirelessError;
@@ -3302,6 +3307,18 @@ class AppState extends ChangeNotifier {
       // access point, are still known to it.
       _enrichClientsWithHostHints(clientMap, await hintsFuture);
 
+      // A client's link type is only knowable from the router's own tables: the
+      // association list says which addresses are on a radio, the bridge
+      // forwarding table says which port each one was learned on. The lease
+      // carries neither, which is why a host known only from its hints had no
+      // type at all.
+      //
+      // Skipped when the wireless read failed: "on the bridge but not
+      // associated" would then call every wireless client wired.
+      if (wirelessError == null) {
+        _applyLinkTypes(clientMap, await fdbFuture, normalizedWireless);
+      }
+
       // Enrich with GL.iNet data
       _enrichClientsWithGlInet(clientMap);
 
@@ -3341,6 +3358,46 @@ class AppState extends ChangeNotifier {
     } catch (e) {
       Logger.warning('Host hints unavailable: $e');
       return const <String, dynamic>{};
+    }
+  }
+
+  /// The LAN bridge forwarding table, or an empty map when the router will not
+  /// say.
+  ///
+  /// Pure enrichment, like the host hints: a router whose ACL does not cover the
+  /// wrapper must still list its clients, just without link types.
+  Future<Map<String, String>> _fetchLanFdb(
+    String ipAddress,
+    String sysauth,
+    bool useHttps,
+  ) async {
+    try {
+      return await _apiService!.lanBridgeFdb(ipAddress, sysauth, useHttps);
+    } catch (e) {
+      Logger.warning('Bridge forwarding table unavailable: $e');
+      return const <String, String>{};
+    }
+  }
+
+  /// Types the clients the router can actually place on a link.
+  ///
+  /// [associated] holds the normalized MACs currently on a radio, so anything
+  /// else the bridge has learned an address for is on a wired port. A client in
+  /// neither table keeps whatever type it had - a device that is away right now
+  /// has no link to report, and guessing one is worse than saying nothing.
+  void _applyLinkTypes(
+    Map<String, Client> clients,
+    Map<String, String> fdb,
+    Set<String> associated,
+  ) {
+    for (final entry in fdb.entries) {
+      final client = clients[entry.key];
+      if (client == null) continue;
+      final type = associated.contains(entry.key)
+          ? ConnectionType.wireless
+          : ConnectionType.wired;
+      if (client.connectionType == type) continue;
+      clients[entry.key] = client.copyWith(connectionType: type);
     }
   }
 

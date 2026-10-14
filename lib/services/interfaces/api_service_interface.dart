@@ -265,6 +265,24 @@ abstract class IApiService {
     BuildContext? context,
   });
 
+  /// The LAN bridge's forwarding table: normalized MAC -> the interface the
+  /// address was last seen on.
+  ///
+  /// This is the only place a client's link type can be read from. The lease
+  /// table does not carry it, and the association list only covers radios - so
+  /// without this table a client on a wired port has no type at all.
+  ///
+  /// The router serves it through a fixed-argument wrapper script rather than
+  /// by granting `bridge` itself, because rpcd's ACL matches an executable path
+  /// without looking at its arguments. Routers without that wrapper answer with
+  /// a permission error; callers must treat that as "no data", not as a failure.
+  Future<Map<String, String>> lanBridgeFdb(
+    String ipAddress,
+    String sysauth,
+    bool useHttps, {
+    BuildContext? context,
+  });
+
   /// `luci.getRealtimeStats` — the sampled series behind LuCI's status
   /// graphs. Valid modes are `interface`, `wireless`, `conntrack` and `load`;
   /// [device] is required for the interface and wireless modes.

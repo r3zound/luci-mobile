@@ -1554,6 +1554,19 @@ class MockApiService implements IApiService {
   }
 
   @override
+  Future<Map<String, String>> lanBridgeFdb(
+    String ipAddress,
+    String sysauth,
+    bool useHttps, {
+    BuildContext? context,
+  }) async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    // Reviewer mode has no bridge table to read, and the fixture clients carry
+    // their own connection type. An empty map leaves them as they are.
+    return const <String, String>{};
+  }
+
+  @override
   Future<Map<String, dynamic>> fetchHostHints(
     String ipAddress,
     String sysauth,
