@@ -3205,6 +3205,14 @@ class AppState extends ChangeNotifier {
           _routerService!.selectedRouter!.activeAddress;
       final activeHttps = _authService!.useHttps;
 
+      // Started before the two fetches below so it overlaps them instead of
+      // adding a third round trip to the screen's load.
+      final hintsFuture = _fetchHostHints(
+        activeIp,
+        _authService!.sysauth!,
+        activeHttps,
+      );
+
       final wireless = <String>{};
       Object? wirelessError;
       StackTrace? wirelessStack;
@@ -3288,6 +3296,12 @@ class AppState extends ChangeNotifier {
         }
       }
 
+      // Enrich with the router's own name/address hints. A lease only covers
+      // addresses this router handed out; hosts on a static address, and hosts
+      // whose lease belongs to an upstream DHCP server when this router is an
+      // access point, are still known to it.
+      _enrichClientsWithHostHints(clientMap, await hintsFuture);
+
       // Enrich with GL.iNet data
       _enrichClientsWithGlInet(clientMap);
 
@@ -3311,6 +3325,88 @@ class AppState extends ChangeNotifier {
     if (model.contains('MT6000') || model.contains('B2200')) return 4;
     if (model.contains('MT3000') || model.contains('MT2500')) return 2;
     return null;
+  }
+
+  /// `luci-rpc.getHostHints`, or an empty map when the router will not say.
+  ///
+  /// Pure enrichment, so every failure is survivable: a router that lacks the
+  /// object, or whose ACL refuses it, must still show its leases.
+  Future<Map<String, dynamic>> _fetchHostHints(
+    String ipAddress,
+    String sysauth,
+    bool useHttps,
+  ) async {
+    try {
+      return await _apiService!.fetchHostHints(ipAddress, sysauth, useHttps);
+    } catch (e) {
+      Logger.warning('Host hints unavailable: $e');
+      return const <String, dynamic>{};
+    }
+  }
+
+  /// Adds the names and addresses the router knows but its lease table lacks.
+  ///
+  /// Keys on both sides are normalized the same way - `fetchHostHints`
+  /// normalizes the MACs the router reports, and this map is keyed by
+  /// `StationInfo.normalizeMac` - so they line up.
+  void _enrichClientsWithHostHints(
+    Map<String, Client> clients,
+    Map<String, dynamic> hints,
+  ) {
+    for (final entry in hints.entries) {
+      final value = entry.value;
+      if (value is! Map) continue;
+
+      final name = value['name']?.toString().trim() ?? '';
+      final ipv4 = _firstIpv4(_asStringList(value['ipaddrs']));
+      final existing = clients[entry.key];
+
+      if (existing == null) {
+        // Known by name and address, yet holding no lease and no wireless
+        // association. Added as `unknown` on purpose: that sorts below the
+        // clients which are actually attached, so a stale entry cannot push
+        // them out of the way, and calling it online would be a guess.
+        if (ipv4 == null || name.isEmpty) continue;
+        clients[entry.key] = Client(
+          ipAddress: ipv4,
+          macAddress: entry.key,
+          hostname: name,
+        );
+        continue;
+      }
+
+      clients[entry.key] = existing.copyWith(
+        // Only ever fills a gap. A hostname from the lease is the device's own
+        // claim, and outranks one inferred from the router's tables.
+        hostname: _isUnnamed(existing.hostname) && name.isNotEmpty
+            ? name
+            : null,
+        ipAddress: existing.ipAddress == 'N/A' ? ipv4 : null,
+      );
+    }
+  }
+
+  static List<String> _asStringList(dynamic value) {
+    if (value is List) return [for (final item in value) item.toString()];
+    if (value is String && value.isNotEmpty) return [value];
+    return const <String>[];
+  }
+
+  /// The first address in [addresses] that is not IPv6.
+  ///
+  /// The list is laid out around one address column, and an IPv6 literal does
+  /// not fit it.
+  static String? _firstIpv4(List<String> addresses) {
+    for (final address in addresses) {
+      if (!address.contains(':')) return address;
+    }
+    return null;
+  }
+
+  /// Whether [hostname] is the absence of a name rather than a name.
+  static bool _isUnnamed(String hostname) {
+    final trimmed = hostname.trim().toLowerCase();
+    return trimmed.isEmpty || trimmed == 'unknown' || trimmed == 'n/a';
   }
 
   /// Enrich client map with GL.iNet API data (band, online, device class).
