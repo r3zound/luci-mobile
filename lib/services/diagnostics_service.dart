@@ -76,17 +76,36 @@ class DiagnosticsService {
   /// lines are what a log view shows anyway.
   static const String _kernelLogWrapper = '/usr/libexec/dmesg-wrap1';
 
+  /// Stock OpenWrt does not grant `/sbin/logread`; it grants this instead.
+  ///
+  /// The wrapper exists because `logread` can deadlock when it is called from
+  /// inside rpcd's own ubus call - which is the very situation `file.exec`
+  /// creates. It ignores its arguments and hands back the whole log, so it is
+  /// the fallback rather than the first choice.
+  static const String _syslogWrapper = '/usr/libexec/syslog-wrapper';
+
   /// Reads the kernel ring buffer.
+  ///
+  /// Three paths, most-truncated first. A router that has never been given the
+  /// wrappers still answers to `dmesg`, and stock OpenWrt grants that only as
+  /// `/bin/dmesg -r` - the `-r` is part of its ACL entry, so it has to be sent.
   Future<DiagnosticResult> kernelLog(RouterSession session) async {
     try {
       return await _exec(session, _kernelLogWrapper, const []);
     } on RpcException {
-      // Routers without the wrapper still answer to plain dmesg.
-      return _exec(session, '/bin/dmesg', const []);
+      try {
+        return await _exec(session, '/bin/dmesg', const ['-r']);
+      } on RpcException {
+        return _exec(session, '/bin/dmesg', const []);
+      }
     }
   }
 
   /// Reads the system log.
+  ///
+  /// `logread` is asked for a bounded number of lines because it can be; the
+  /// stock wrapper cannot be, so it is only used when `logread` is refused.
+  /// That is the common case on a router nobody has prepared for this app.
   ///
   /// `logread` talks to ubus itself, and on some builds doing that from inside
   /// an `file.exec` — which is already a ubus call — deadlocks until rpcd
@@ -96,7 +115,11 @@ class DiagnosticsService {
     RouterSession session, {
     int lines = 200,
   }) async {
-    return _exec(session, '/sbin/logread', ['-l', '$lines']);
+    try {
+      return await _exec(session, '/sbin/logread', ['-l', '$lines']);
+    } on RpcException {
+      return _exec(session, _syslogWrapper, const []);
+    }
   }
 
   /// Runs [command] and returns whatever it printed, whatever it exited with.
