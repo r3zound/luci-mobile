@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 
-import 'package:luci_mobile/models/router_capabilities.dart';
-import 'package:luci_mobile/services/interfaces/api_service_interface.dart';
-import 'package:luci_mobile/state/router_session.dart';
-import 'package:luci_mobile/utils/logger.dart';
+import 'package:router_pilot/models/router_capabilities.dart';
+import 'package:router_pilot/services/interfaces/api_service_interface.dart';
+import 'package:router_pilot/state/router_session.dart';
+import 'package:router_pilot/utils/logger.dart';
 
 /// Reads what one router supports, so features can hide or explain themselves
 /// instead of failing at the point of use.

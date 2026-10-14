@@ -1,13 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:luci_mobile/models/router_capabilities.dart';
-import 'package:luci_mobile/models/uci_change.dart';
-import 'package:luci_mobile/services/uci_changeset_service.dart';
-import 'package:luci_mobile/state/app_state_provider.dart';
-import 'package:luci_mobile/state/apply_lock.dart';
-import 'package:luci_mobile/state/feature_providers.dart';
-import 'package:luci_mobile/utils/logger.dart';
+import 'package:router_pilot/models/router_capabilities.dart';
+import 'package:router_pilot/models/uci_change.dart';
+import 'package:router_pilot/services/uci_changeset_service.dart';
+import 'package:router_pilot/state/app_state_provider.dart';
+import 'package:router_pilot/state/apply_lock.dart';
+import 'package:router_pilot/state/feature_providers.dart';
+import 'package:router_pilot/utils/logger.dart';
 
 /// Stages and applies [ops] on the selected router.
 ///

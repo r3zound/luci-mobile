@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 
-import 'package:luci_mobile/services/api_service.dart';
-import 'package:luci_mobile/services/interfaces/api_service_interface.dart';
-import 'package:luci_mobile/state/router_session.dart';
+import 'package:router_pilot/services/api_service.dart';
+import 'package:router_pilot/services/interfaces/api_service_interface.dart';
+import 'package:router_pilot/state/router_session.dart';
 
 /// A network tool the router can run on the user's behalf.
 ///

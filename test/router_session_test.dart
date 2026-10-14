@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:luci_mobile/services/mock_api_service.dart';
-import 'package:luci_mobile/services/mock_auth_service.dart';
-import 'package:luci_mobile/state/app_state.dart';
-import 'package:luci_mobile/state/router_session.dart';
+import 'package:router_pilot/services/mock_api_service.dart';
+import 'package:router_pilot/services/mock_auth_service.dart';
+import 'package:router_pilot/state/app_state.dart';
+import 'package:router_pilot/state/router_session.dart';
 
 const _base = RouterSession(
   routerId: 'r1',

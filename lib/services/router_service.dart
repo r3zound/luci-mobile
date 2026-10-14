@@ -1,5 +1,5 @@
-import 'package:luci_mobile/models/router.dart' as model;
-import 'package:luci_mobile/services/secure_storage_service.dart';
+import 'package:router_pilot/models/router.dart' as model;
+import 'package:router_pilot/services/secure_storage_service.dart';
 
 class RouterService {
   final SecureStorageService _secureStorageService = SecureStorageService();

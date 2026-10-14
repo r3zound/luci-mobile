@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:luci_mobile/models/router_capabilities.dart';
-import 'package:luci_mobile/services/capability_service.dart';
-import 'package:luci_mobile/services/router_liveness_probe.dart';
-import 'package:luci_mobile/services/uci_changeset_service.dart';
-import 'package:luci_mobile/state/app_state_provider.dart';
+import 'package:router_pilot/models/router_capabilities.dart';
+import 'package:router_pilot/services/capability_service.dart';
+import 'package:router_pilot/services/router_liveness_probe.dart';
+import 'package:router_pilot/services/uci_changeset_service.dart';
+import 'package:router_pilot/state/app_state_provider.dart';
 
 /// Stands in for the network probe when the whole backend is mocked.
 ///

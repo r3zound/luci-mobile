@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:luci_mobile/services/api_service.dart';
-import 'package:luci_mobile/services/mock_api_service.dart';
-import 'package:luci_mobile/services/wol_service.dart';
-import 'package:luci_mobile/state/router_session.dart';
+import 'package:router_pilot/services/api_service.dart';
+import 'package:router_pilot/services/mock_api_service.dart';
+import 'package:router_pilot/services/wol_service.dart';
+import 'package:router_pilot/state/router_session.dart';
 
 class _ConfigApi extends MockApiService {
   Map<String, dynamic>? etherwake;

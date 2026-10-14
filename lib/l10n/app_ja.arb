@@ -83,7 +83,7 @@
   "restartRadio": "無線機を再起動",
   "availableNetworks": "利用可能なネットワーク",
   "hiddenNetworks": "非表示のネットワーク",
-  "appTitle": "LuCI Mobile",
+  "appTitle": "RouterPilot",
   "exit": "終了",
   "loading": "読み込み中...",
   "customizeDashboardDescription": "インターフェイスの可視性とスループット監視を構成する",

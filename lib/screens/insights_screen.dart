@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:luci_mobile/design/luci_design_system.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
-import 'package:luci_mobile/screens/diagnostics_screen.dart';
-import 'package:luci_mobile/screens/traffic_screen.dart';
-import 'package:luci_mobile/screens/event_feed_screen.dart';
-import 'package:luci_mobile/screens/log_screen.dart';
-import 'package:luci_mobile/widgets/luci_app_bar.dart';
-import 'package:luci_mobile/widgets/luci_hub_tile.dart';
+import 'package:router_pilot/design/luci_design_system.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
+import 'package:router_pilot/screens/diagnostics_screen.dart';
+import 'package:router_pilot/screens/traffic_screen.dart';
+import 'package:router_pilot/screens/event_feed_screen.dart';
+import 'package:router_pilot/screens/log_screen.dart';
+import 'package:router_pilot/widgets/luci_app_bar.dart';
+import 'package:router_pilot/widgets/luci_hub_tile.dart';
 
 /// Read-only visibility into what the router is doing: logs, diagnostics and
 /// activity.

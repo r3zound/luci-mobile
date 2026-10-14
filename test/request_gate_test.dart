@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:luci_mobile/utils/http_client_manager.dart';
+import 'package:router_pilot/utils/http_client_manager.dart';
 
 /// A router stand-in that counts how many requests it holds at once.
 ///

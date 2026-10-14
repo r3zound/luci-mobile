@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:luci_mobile/models/router.dart';
-import 'package:luci_mobile/services/api_service.dart';
-import 'package:luci_mobile/services/auth_service.dart';
+import 'package:router_pilot/models/router.dart';
+import 'package:router_pilot/services/api_service.dart';
+import 'package:router_pilot/services/auth_service.dart';
 
 void main() {
   group('Router fallback address', () {

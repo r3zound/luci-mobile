@@ -1,8 +1,8 @@
-import 'package:luci_mobile/utils/uci_values.dart';
-import 'package:luci_mobile/services/api_service.dart';
-import 'package:luci_mobile/services/interfaces/api_service_interface.dart';
-import 'package:luci_mobile/utils/logger.dart';
-import 'package:luci_mobile/state/router_session.dart';
+import 'package:router_pilot/utils/uci_values.dart';
+import 'package:router_pilot/services/api_service.dart';
+import 'package:router_pilot/services/interfaces/api_service_interface.dart';
+import 'package:router_pilot/utils/logger.dart';
+import 'package:router_pilot/state/router_session.dart';
 
 /// Sends a wake-on-LAN packet from the router.
 ///

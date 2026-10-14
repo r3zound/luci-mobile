@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:luci_mobile/models/uci_change.dart';
-import 'package:luci_mobile/services/api_service.dart';
-import 'package:luci_mobile/services/firewall_planner.dart';
-import 'package:luci_mobile/services/mock_api_service.dart';
-import 'package:luci_mobile/services/router_liveness_probe.dart';
-import 'package:luci_mobile/services/uci_changeset_service.dart';
-import 'package:luci_mobile/state/router_session.dart';
+import 'package:router_pilot/models/uci_change.dart';
+import 'package:router_pilot/services/api_service.dart';
+import 'package:router_pilot/services/firewall_planner.dart';
+import 'package:router_pilot/services/mock_api_service.dart';
+import 'package:router_pilot/services/router_liveness_probe.dart';
+import 'package:router_pilot/services/uci_changeset_service.dart';
+import 'package:router_pilot/state/router_session.dart';
 
 const _session = RouterSession(
   routerId: 'r1',
@@ -248,11 +248,11 @@ void main() {
           'firewall',
           type: 'rule',
           values: {'target': 'REJECT'},
-          name: 'luci_mobile_block_aabb',
+          name: 'router_pilot_block_aabb',
         ),
       ]);
 
-      expect(staged.sections[0], 'luci_mobile_block_aabb');
+      expect(staged.sections[0], 'router_pilot_block_aabb');
     });
 
     test('reverts every touched config when an operation fails', () async {
@@ -599,22 +599,22 @@ void main() {
     test('a three-element set row is a named section add', () {
       final change = UciChange.fromWire('firewall', const [
         'set',
-        'luci_mobile_plex',
+        'router_pilot_plex',
         'redirect',
       ]);
       expect(change!.op, UciOp.add);
-      expect(change.section, 'luci_mobile_plex');
+      expect(change.section, 'router_pilot_plex');
       expect(change.option, 'redirect');
       final set = UciChangeSet.fromWire({
         'firewall': [
-          ['set', 'luci_mobile_plex', 'redirect'],
-          ['set', 'luci_mobile_plex', 'name', 'Plex'],
+          ['set', 'router_pilot_plex', 'redirect'],
+          ['set', 'router_pilot_plex', 'name', 'Plex'],
         ],
       });
-      expect(set.hasAdd('firewall', 'luci_mobile_plex'), isTrue);
-      expect(set.addedSections('firewall', 'redirect'), ['luci_mobile_plex']);
+      expect(set.hasAdd('firewall', 'router_pilot_plex'), isTrue);
+      expect(set.addedSections('firewall', 'redirect'), ['router_pilot_plex']);
       expect(
-        FirewallPlanner.takenSectionNames({'luci_mobile_plex', 'cfg01'}, set),
+        FirewallPlanner.takenSectionNames({'router_pilot_plex', 'cfg01'}, set),
         {'cfg01'},
       );
     });

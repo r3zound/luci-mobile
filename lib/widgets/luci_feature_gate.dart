@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
-import 'package:luci_mobile/l10n/luci_localizations.dart';
-import 'package:luci_mobile/models/router_capabilities.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
+import 'package:router_pilot/models/router_capabilities.dart';
 
 /// Turns a capability verdict into something a user can act on.
 ///

@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:luci_mobile/models/client.dart';
-import 'package:luci_mobile/models/router_event.dart';
-import 'package:luci_mobile/services/event_log.dart';
-import 'package:luci_mobile/services/secure_storage_service.dart';
+import 'package:router_pilot/models/client.dart';
+import 'package:router_pilot/models/router_event.dart';
+import 'package:router_pilot/services/event_log.dart';
+import 'package:router_pilot/services/secure_storage_service.dart';
 
 class _MemoryStorage implements SecureStorageService {
   final Map<String, String> values = {};

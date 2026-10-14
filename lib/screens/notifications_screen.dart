@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:luci_mobile/l10n/app_localizations.dart';
-import 'package:luci_mobile/design/luci_design_system.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
-import 'package:luci_mobile/models/router_event.dart';
-import 'package:luci_mobile/services/background_monitor.dart';
-import 'package:luci_mobile/state/notifications_notifier.dart';
-import 'package:luci_mobile/widgets/luci_app_bar.dart';
+import 'package:router_pilot/l10n/app_localizations.dart';
+import 'package:router_pilot/design/luci_design_system.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
+import 'package:router_pilot/models/router_event.dart';
+import 'package:router_pilot/services/background_monitor.dart';
+import 'package:router_pilot/state/notifications_notifier.dart';
+import 'package:router_pilot/widgets/luci_app_bar.dart';
 
 /// Whether — and what — the app may notify about while it is closed.
 class NotificationsScreen extends ConsumerWidget {

@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:luci_mobile/utils/uci_values.dart';
-import 'package:luci_mobile/models/client_config.dart';
-import 'package:luci_mobile/models/uci_change.dart';
-import 'package:luci_mobile/services/client_config_planner.dart';
+import 'package:router_pilot/utils/uci_values.dart';
+import 'package:router_pilot/models/client_config.dart';
+import 'package:router_pilot/models/uci_change.dart';
+import 'package:router_pilot/services/client_config_planner.dart';
 
 const _mac = 'AA:BB:CC:11:22:33';
 
@@ -57,9 +57,9 @@ final _firewall = <String, dynamic>{
     'name': 'wan',
     'network': 'wan wan6',
   },
-  'luci_mobile_block_aabbcc112233': {
+  'router_pilot_block_aabbcc112233': {
     '.type': 'rule',
-    '.name': 'luci_mobile_block_aabbcc112233',
+    '.name': 'router_pilot_block_aabbcc112233',
     'src_mac': 'AA:BB:CC:11:22:33',
     'target': 'REJECT',
     'enabled': '1',
@@ -109,7 +109,7 @@ void main() {
     test('derives a stable block section name', () {
       expect(
         ClientConfigPlanner.blockSectionFor('aa-bb-cc-11-22-33'),
-        'luci_mobile_block_aabbcc112233',
+        'router_pilot_block_aabbcc112233',
       );
     });
 
@@ -450,7 +450,7 @@ void main() {
       final add = ops.single as UciAdd;
       expect(add.config, 'firewall');
       expect(add.type, 'rule');
-      expect(add.name, 'luci_mobile_block_ddeeff998877');
+      expect(add.name, 'router_pilot_block_ddeeff998877');
       expect(add.values['src'], 'guest');
       expect(add.values['src_mac'], 'DD:EE:FF:99:88:77');
       // The router itself must stay reachable, or a user who blocks the phone
@@ -469,7 +469,7 @@ void main() {
         existing: existing,
       );
       final set = ops.single as UciSet;
-      expect(set.section, 'luci_mobile_block_aabbcc112233');
+      expect(set.section, 'router_pilot_block_aabbcc112233');
       expect(set.values['enabled'], '1');
     });
 
@@ -488,6 +488,27 @@ void main() {
       expect(rule, isNotNull);
       expect(rule!.ownedByApp, isFalse);
       expect(rule.target, 'DROP');
+    });
+
+    // See AppRulePrefix: a legacy section name must stay removable, otherwise
+    // lifting the block would only disable it and leave it on the router.
+    test('a legacy block rule is still owned and deleted', () {
+      const legacy = <String, dynamic>{
+        'rule': {
+          'luci_mobile_block_aabbcc112233': {
+            '.type': 'rule',
+            'name': 'Block laptop (LuCI Mobile)',
+            'src': 'lan',
+            'src_mac': 'AA:BB:CC:11:22:33',
+            'target': 'REJECT',
+          },
+        },
+      };
+      final rule = ClientConfigPlanner.findBlockRule(legacy, _mac);
+      expect(rule, isNotNull);
+      expect(rule!.ownedByApp, isTrue);
+      final ops = ClientConfigPlanner.planUnblock(existing: rule);
+      expect(ops.single, isA<UciRemove>());
     });
 
     test('an ACCEPT rule is not a block', () {

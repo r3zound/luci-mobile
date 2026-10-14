@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:luci_mobile/state/apply_lock.dart';
+import 'package:router_pilot/state/apply_lock.dart';
 
 void main() {
   group('serialising applies', () {

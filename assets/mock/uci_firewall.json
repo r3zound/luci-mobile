@@ -45,11 +45,11 @@
       "src": "lan",
       "dest": "wan"
     },
-    "luci_mobile_block_ccddee98765a": {
+    "router_pilot_block_ccddee98765a": {
       ".anonymous": false,
       ".type": "rule",
-      ".name": "luci_mobile_block_ccddee98765a",
-      "name": "Block Baby-Monitor (LuCI Mobile)",
+      ".name": "router_pilot_block_ccddee98765a",
+      "name": "Block Baby-Monitor (RouterPilot)",
       "src": "lan",
       "src_mac": "CC:DD:EE:98:76:54",
       "dest": "*",

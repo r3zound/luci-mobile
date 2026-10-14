@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:luci_mobile/services/api_service.dart';
+import 'package:router_pilot/services/api_service.dart';
 
 /// Spins up a loopback server that answers every ubus call with [reply],
 /// recording the JSON-RPC payloads it received.

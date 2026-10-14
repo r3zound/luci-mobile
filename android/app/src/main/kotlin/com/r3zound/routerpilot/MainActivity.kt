@@ -1,4 +1,4 @@
-package com.cogwheel.LuCIMobile
+package com.r3zound.routerpilot
 
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine

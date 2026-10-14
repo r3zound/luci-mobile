@@ -15,7 +15,7 @@ plugins {
 }
 
 android {
-    namespace = "com.cogwheel.LuCIMobile"
+    namespace = "com.r3zound.routerpilot"
     compileSdk = 37
     ndkVersion = "28.2.13676358"
 
@@ -29,7 +29,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.cogwheel.LuCIMobile"
+        applicationId = "com.r3zound.routerpilot"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion

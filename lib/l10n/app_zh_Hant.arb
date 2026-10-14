@@ -83,7 +83,7 @@
   "restartRadio": "重新啟動無線模組",
   "availableNetworks": "可用網路",
   "hiddenNetworks": "隱藏網路",
-  "appTitle": "LuCI Mobile",
+  "appTitle": "RouterPilot",
   "exit": "離開",
   "loading": "載入中...",
   "customizeDashboardDescription": "設定介面可見性和吞吐量監控",

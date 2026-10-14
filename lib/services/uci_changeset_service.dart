@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
-import 'package:luci_mobile/models/uci_change.dart';
-import 'package:luci_mobile/services/api_service.dart';
-import 'package:luci_mobile/services/interfaces/api_service_interface.dart';
-import 'package:luci_mobile/services/router_liveness_probe.dart';
-import 'package:luci_mobile/state/router_session.dart';
-import 'package:luci_mobile/utils/logger.dart';
+import 'package:router_pilot/models/uci_change.dart';
+import 'package:router_pilot/services/api_service.dart';
+import 'package:router_pilot/services/interfaces/api_service_interface.dart';
+import 'package:router_pilot/services/router_liveness_probe.dart';
+import 'package:router_pilot/state/router_session.dart';
+import 'package:router_pilot/utils/logger.dart';
 
 /// How an apply is committed.
 enum ApplyMode {

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:luci_mobile/navigation/luci_tab.dart';
+import 'package:router_pilot/navigation/luci_tab.dart';
 
 /// The shell went from four destinations to five, which silently re-pointed
 /// every hardcoded index. These pin the contract the enum replaced them with.

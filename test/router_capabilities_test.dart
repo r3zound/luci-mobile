@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:luci_mobile/models/router_capabilities.dart';
+import 'package:router_pilot/models/router_capabilities.dart';
 
 /// A fully-permitted root login on a stock modern build.
 RouterCapabilities _stock({

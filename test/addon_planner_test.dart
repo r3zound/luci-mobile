@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:luci_mobile/l10n/addon_strings.dart';
-import 'package:luci_mobile/l10n/app_localizations.dart';
-import 'package:luci_mobile/models/addon_spec.dart';
-import 'package:luci_mobile/models/uci_change.dart';
-import 'package:luci_mobile/services/addon_catalog.dart';
-import 'package:luci_mobile/services/addon_planner.dart';
+import 'package:router_pilot/l10n/addon_strings.dart';
+import 'package:router_pilot/l10n/app_localizations.dart';
+import 'package:router_pilot/models/addon_spec.dart';
+import 'package:router_pilot/models/uci_change.dart';
+import 'package:router_pilot/services/addon_catalog.dart';
+import 'package:router_pilot/services/addon_planner.dart';
 
 /// The shape `uci.get` returns, as measured on OpenWrt 24.10.
 const _sqm = {

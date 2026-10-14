@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:luci_mobile/services/api_service.dart';
+import 'package:router_pilot/services/api_service.dart';
 
 /// The forwarding table exactly as a router prints it, captured over
 /// `/usr/libexec/lan-fdb` on a ZTE V50.

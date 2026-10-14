@@ -5,7 +5,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:luci_mobile/design/luci_design_system.dart';
+import 'package:router_pilot/design/luci_design_system.dart';
 
 /// A grouped card of hub entries, divided like a settings list.
 class LuciHubSection extends StatelessWidget {

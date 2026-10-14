@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "appTitle": "LuCI Mobile",
+  "appTitle": "RouterPilot",
   "appTagline": "OpenWrt Router Control",
   "dashboard": "Dashboard",
   "clients": "Clients",

@@ -2,17 +2,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:luci_mobile/models/router.dart' as model;
-import 'package:luci_mobile/models/router_capabilities.dart';
-import 'package:luci_mobile/services/router_service.dart';
-import 'package:luci_mobile/services/mock_api_service.dart';
-import 'package:luci_mobile/services/mock_auth_service.dart';
-import 'package:luci_mobile/state/app_state.dart';
-import 'package:luci_mobile/state/app_state_provider.dart';
-import 'package:luci_mobile/models/uci_change.dart';
-import 'package:luci_mobile/services/uci_changeset_service.dart';
-import 'package:luci_mobile/state/client_detail_notifier.dart';
-import 'package:luci_mobile/state/feature_providers.dart';
+import 'package:router_pilot/models/router.dart' as model;
+import 'package:router_pilot/models/router_capabilities.dart';
+import 'package:router_pilot/services/router_service.dart';
+import 'package:router_pilot/services/mock_api_service.dart';
+import 'package:router_pilot/services/mock_auth_service.dart';
+import 'package:router_pilot/state/app_state.dart';
+import 'package:router_pilot/state/app_state_provider.dart';
+import 'package:router_pilot/models/uci_change.dart';
+import 'package:router_pilot/services/uci_changeset_service.dart';
+import 'package:router_pilot/state/client_detail_notifier.dart';
+import 'package:router_pilot/state/feature_providers.dart';
 
 class _TestAppState extends AppState {
   _TestAppState()

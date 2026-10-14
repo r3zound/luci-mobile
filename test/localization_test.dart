@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:luci_mobile/l10n/app_localizations.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
+import 'package:router_pilot/l10n/app_localizations.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
 
 void main() {
   test('supports the same locales as Conduit', () async {

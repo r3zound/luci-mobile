@@ -1,21 +1,21 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:luci_mobile/utils/uci_values.dart';
-import 'package:luci_mobile/models/client_config.dart';
-import 'package:luci_mobile/models/station_info.dart';
-import 'package:luci_mobile/models/uci_change.dart';
-import 'package:luci_mobile/services/client_alias_store.dart';
-import 'package:luci_mobile/services/client_config_planner.dart';
-import 'package:luci_mobile/services/secure_storage_service.dart';
-import 'package:luci_mobile/services/interfaces/api_service_interface.dart';
-import 'package:luci_mobile/services/uci_changeset_service.dart';
-import 'package:luci_mobile/services/wol_service.dart';
-import 'package:luci_mobile/state/firewall_notifier.dart';
-import 'package:luci_mobile/state/app_state_provider.dart';
-import 'package:luci_mobile/state/uci_mutation.dart';
-import 'package:luci_mobile/state/router_session.dart';
-import 'package:luci_mobile/utils/logger.dart';
+import 'package:router_pilot/utils/uci_values.dart';
+import 'package:router_pilot/models/client_config.dart';
+import 'package:router_pilot/models/station_info.dart';
+import 'package:router_pilot/models/uci_change.dart';
+import 'package:router_pilot/services/client_alias_store.dart';
+import 'package:router_pilot/services/client_config_planner.dart';
+import 'package:router_pilot/services/secure_storage_service.dart';
+import 'package:router_pilot/services/interfaces/api_service_interface.dart';
+import 'package:router_pilot/services/uci_changeset_service.dart';
+import 'package:router_pilot/services/wol_service.dart';
+import 'package:router_pilot/state/firewall_notifier.dart';
+import 'package:router_pilot/state/app_state_provider.dart';
+import 'package:router_pilot/state/uci_mutation.dart';
+import 'package:router_pilot/state/router_session.dart';
+import 'package:router_pilot/utils/logger.dart';
 
 final clientAliasStoreProvider = Provider<ClientAliasStore>(
   (ref) => ClientAliasStore(SecureStorageService()),

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:luci_mobile/utils/ipv4.dart';
+import 'package:router_pilot/utils/ipv4.dart';
 
 void main() {
   test('accepts a dotted quad', () {

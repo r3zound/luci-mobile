@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:luci_mobile/utils/uci_values.dart';
-import 'package:luci_mobile/models/router_capabilities.dart';
-import 'package:luci_mobile/models/uci_change.dart';
-import 'package:luci_mobile/state/system_settings_notifier.dart';
+import 'package:router_pilot/utils/uci_values.dart';
+import 'package:router_pilot/models/router_capabilities.dart';
+import 'package:router_pilot/models/uci_change.dart';
+import 'package:router_pilot/state/system_settings_notifier.dart';
 
 SystemSettings settings({
   String section = 'cfg01e48a',

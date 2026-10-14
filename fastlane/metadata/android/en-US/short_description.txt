@@ -1,1 +1,1 @@
-Manage your OpenWrt router from your phone. 
+Manage OpenWrt routers and CPEs from your phone.

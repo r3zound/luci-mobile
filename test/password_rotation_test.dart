@@ -4,15 +4,15 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:luci_mobile/models/router.dart' as model;
-import 'package:luci_mobile/services/mock_api_service.dart';
-import 'package:luci_mobile/services/mock_auth_service.dart';
-import 'package:luci_mobile/state/app_state.dart';
-import 'package:luci_mobile/state/app_state_provider.dart';
-import 'package:luci_mobile/services/background_monitor.dart';
-import 'package:luci_mobile/services/background_worker.dart';
-import 'package:luci_mobile/services/secure_storage_service.dart';
-import 'package:luci_mobile/state/system_settings_notifier.dart';
+import 'package:router_pilot/models/router.dart' as model;
+import 'package:router_pilot/services/mock_api_service.dart';
+import 'package:router_pilot/services/mock_auth_service.dart';
+import 'package:router_pilot/state/app_state.dart';
+import 'package:router_pilot/state/app_state_provider.dart';
+import 'package:router_pilot/services/background_monitor.dart';
+import 'package:router_pilot/services/background_worker.dart';
+import 'package:router_pilot/services/secure_storage_service.dart';
+import 'package:router_pilot/state/system_settings_notifier.dart';
 
 /// Records what was asked of the router, and can refuse.
 class _RecordingApi extends MockApiService {

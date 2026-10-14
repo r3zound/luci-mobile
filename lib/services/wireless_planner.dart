@@ -1,6 +1,6 @@
-import 'package:luci_mobile/utils/uci_values.dart';
-import 'package:luci_mobile/models/uci_change.dart';
-import 'package:luci_mobile/models/wireless_config.dart';
+import 'package:router_pilot/utils/uci_values.dart';
+import 'package:router_pilot/models/uci_change.dart';
+import 'package:router_pilot/models/wireless_config.dart';
 
 /// What to do with one option: leave it, set it, or remove it.
 sealed class OptionEdit {

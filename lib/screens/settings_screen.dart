@@ -2,23 +2,23 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:luci_mobile/main.dart';
-import 'package:luci_mobile/screens/login_screen.dart';
-import 'package:luci_mobile/screens/app_preferences_screen.dart';
-import 'package:luci_mobile/screens/notifications_screen.dart';
-import 'package:luci_mobile/screens/services_screen.dart';
-import 'package:luci_mobile/screens/system_settings_screen.dart';
-import 'package:luci_mobile/widgets/luci_app_bar.dart';
-import 'package:luci_mobile/design/luci_design_system.dart';
-import 'package:luci_mobile/widgets/luci_hub_tile.dart';
+import 'package:router_pilot/main.dart';
+import 'package:router_pilot/screens/login_screen.dart';
+import 'package:router_pilot/screens/app_preferences_screen.dart';
+import 'package:router_pilot/screens/notifications_screen.dart';
+import 'package:router_pilot/screens/services_screen.dart';
+import 'package:router_pilot/screens/system_settings_screen.dart';
+import 'package:router_pilot/widgets/luci_app_bar.dart';
+import 'package:router_pilot/design/luci_design_system.dart';
+import 'package:router_pilot/widgets/luci_hub_tile.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:luci_mobile/config/app_config.dart';
-import 'package:luci_mobile/screens/manage_routers_screen.dart';
-import 'package:luci_mobile/screens/wifi_scan_screen.dart';
-import 'package:luci_mobile/utils/http_client_manager.dart';
-import 'package:luci_mobile/state/app_state.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
+import 'package:router_pilot/config/app_config.dart';
+import 'package:router_pilot/screens/manage_routers_screen.dart';
+import 'package:router_pilot/screens/wifi_scan_screen.dart';
+import 'package:router_pilot/utils/http_client_manager.dart';
+import 'package:router_pilot/state/app_state.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});

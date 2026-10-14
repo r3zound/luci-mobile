@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:luci_mobile/design/luci_design_system.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
+import 'package:router_pilot/design/luci_design_system.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
 
 class LuciAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;

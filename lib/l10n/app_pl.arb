@@ -83,7 +83,7 @@
   "restartRadio": "Uruchom radio ponownie",
   "availableNetworks": "DOSTĘPNE SIECI",
   "hiddenNetworks": "UKRYTE SIECI",
-  "appTitle": "LuCI Mobile",
+  "appTitle": "RouterPilot",
   "exit": "Wyjdź",
   "loading": "Załadunek...",
   "customizeDashboardDescription": "Skonfiguruj widoczność interfejsu i monitorowanie przepustowości",

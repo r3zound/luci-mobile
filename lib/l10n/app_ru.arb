@@ -83,7 +83,7 @@
   "restartRadio": "Перезапустить радиомодуль",
   "availableNetworks": "ДОСТУПНЫЕ СЕТИ",
   "hiddenNetworks": "СКРЫТЫЕ СЕТИ",
-  "appTitle": "LuCI Mobile",
+  "appTitle": "RouterPilot",
   "exit": "Выйти",
   "loading": "Загрузка...",
   "customizeDashboardDescription": "Настройка видимости интерфейса и мониторинга пропускной способности",

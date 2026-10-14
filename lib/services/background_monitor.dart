@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 
-import 'package:luci_mobile/models/client.dart';
-import 'package:luci_mobile/models/router_event.dart';
-import 'package:luci_mobile/services/event_log.dart';
+import 'package:router_pilot/models/client.dart';
+import 'package:router_pilot/models/router_event.dart';
+import 'package:router_pilot/services/event_log.dart';
 
 /// Which events are worth waking someone for.
 ///

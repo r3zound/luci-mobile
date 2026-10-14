@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'package:luci_mobile/design/luci_design_system.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
-import 'package:luci_mobile/services/uci_changeset_service.dart';
+import 'package:router_pilot/design/luci_design_system.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
+import 'package:router_pilot/services/uci_changeset_service.dart';
 
 /// Live state of an in-flight apply, pushed in from the changeset service.
 class ApplyProgress extends ChangeNotifier {

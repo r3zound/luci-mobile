@@ -1,4 +1,4 @@
-import 'package:luci_mobile/models/glinet_data.dart';
+import 'package:router_pilot/models/glinet_data.dart';
 
 abstract class IGlInetApiService {
   bool get isAuthenticated;

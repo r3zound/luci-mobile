@@ -83,7 +83,7 @@
   "restartRadio": "Funkmodul neu starten",
   "availableNetworks": "VERFÜGBARE NETZWERKE",
   "hiddenNetworks": "VERSTECKTE NETZWERKE",
-  "appTitle": "LuCI Mobile",
+  "appTitle": "RouterPilot",
   "exit": "Beenden",
   "loading": "Laden...",
   "customizeDashboardDescription": "Konfigurieren Sie die Schnittstellensichtbarkeit und Durchsatzüberwachung",

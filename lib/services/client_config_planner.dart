@@ -1,8 +1,9 @@
-import 'package:luci_mobile/utils/ipv4.dart';
-import 'package:luci_mobile/utils/uci_values.dart';
-import 'package:luci_mobile/models/client_config.dart';
-import 'package:luci_mobile/models/station_info.dart';
-import 'package:luci_mobile/models/uci_change.dart';
+import 'package:router_pilot/utils/ipv4.dart';
+import 'package:router_pilot/utils/uci_values.dart';
+import 'package:router_pilot/models/client_config.dart';
+import 'package:router_pilot/models/firewall_config.dart';
+import 'package:router_pilot/models/station_info.dart';
+import 'package:router_pilot/models/uci_change.dart';
 
 /// One IPv4 address an interface holds, from `network.interface dump`.
 class InterfaceSubnet {
@@ -58,9 +59,14 @@ class ClientConfigPlanner {
   const ClientConfigPlanner._();
 
   /// Prefix for block rules this app creates. Unblock only ever *deletes* a
-  /// section carrying this prefix; anything else is disabled instead, so a
-  /// rule the user wrote in LuCI is never silently destroyed.
-  static const String blockRulePrefix = 'luci_mobile_block_';
+  /// section carrying this prefix (or [legacyBlockRulePrefix]); anything else
+  /// is disabled instead, so a rule the user wrote in LuCI is never silently
+  /// destroyed.
+  static const String blockRulePrefix = '${AppRulePrefix.current}block_';
+
+  /// The block-rule prefix used before the RouterPilot rename; still deleted
+  /// rather than disabled, so older rules do not become unmanageable.
+  static const String legacyBlockRulePrefix = '${AppRulePrefix.legacy}block_';
 
   /// The section name this app uses for a given MAC's block rule.
   static String blockSectionFor(String mac) =>
@@ -137,7 +143,9 @@ class ClientConfigPlanner {
         section: entry.key,
         macAddresses: macs,
         enabled: uciBool(entry.value['enabled'], orElse: true),
-        ownedByApp: entry.key.startsWith(blockRulePrefix),
+        ownedByApp:
+            entry.key.startsWith(blockRulePrefix) ||
+            entry.key.startsWith(legacyBlockRulePrefix),
         target: rawTarget,
       );
     }
@@ -477,7 +485,7 @@ class ClientConfigPlanner {
         type: 'rule',
         name: blockSectionFor(normalized),
         values: {
-          'name': 'Block $displayName (LuCI Mobile)',
+          'name': 'Block $displayName (RouterPilot)',
           'src': zone,
           'src_mac': normalized,
           'dest': '*',

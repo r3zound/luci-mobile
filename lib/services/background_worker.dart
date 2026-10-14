@@ -5,15 +5,15 @@ import 'dart:ui';
 import 'package:flutter/widgets.dart';
 import 'package:workmanager/workmanager.dart';
 
-import 'package:luci_mobile/l10n/app_localizations.dart';
-import 'package:luci_mobile/models/router_event.dart';
-import 'package:luci_mobile/services/api_service.dart';
-import 'package:luci_mobile/services/interfaces/api_service_interface.dart';
-import 'package:luci_mobile/services/background_monitor.dart';
-import 'package:luci_mobile/services/event_log.dart';
-import 'package:luci_mobile/services/notification_service.dart';
-import 'package:luci_mobile/services/secure_storage_service.dart';
-import 'package:luci_mobile/utils/logger.dart';
+import 'package:router_pilot/l10n/app_localizations.dart';
+import 'package:router_pilot/models/router_event.dart';
+import 'package:router_pilot/services/api_service.dart';
+import 'package:router_pilot/services/interfaces/api_service_interface.dart';
+import 'package:router_pilot/services/background_monitor.dart';
+import 'package:router_pilot/services/event_log.dart';
+import 'package:router_pilot/services/notification_service.dart';
+import 'package:router_pilot/services/secure_storage_service.dart';
+import 'package:router_pilot/utils/logger.dart';
 
 /// Keys the foreground writes and the background isolate reads.
 ///

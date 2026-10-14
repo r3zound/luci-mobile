@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:luci_mobile/l10n/luci_localizations.dart';
-import 'package:luci_mobile/main.dart';
-import 'package:luci_mobile/navigation/luci_tab.dart';
-import 'package:luci_mobile/screens/clients_screen.dart';
-import 'package:luci_mobile/screens/dashboard_screen.dart';
-import 'package:luci_mobile/screens/device_screen.dart';
-import 'package:luci_mobile/screens/insights_screen.dart';
-import 'package:luci_mobile/screens/network_screen.dart';
-import 'package:luci_mobile/screens/settings_screen.dart';
-import 'package:luci_mobile/widgets/luci_navigation_enhancements.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
+import 'package:router_pilot/main.dart';
+import 'package:router_pilot/navigation/luci_tab.dart';
+import 'package:router_pilot/screens/clients_screen.dart';
+import 'package:router_pilot/screens/dashboard_screen.dart';
+import 'package:router_pilot/screens/device_screen.dart';
+import 'package:router_pilot/screens/insights_screen.dart';
+import 'package:router_pilot/screens/network_screen.dart';
+import 'package:router_pilot/screens/settings_screen.dart';
+import 'package:router_pilot/widgets/luci_navigation_enhancements.dart';
 
 class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key, this.initialTab, this.interfaceToScroll});

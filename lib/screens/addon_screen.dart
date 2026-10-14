@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:luci_mobile/l10n/failure_text.dart';
-import 'package:luci_mobile/design/luci_design_system.dart';
-import 'package:luci_mobile/l10n/addon_strings.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
-import 'package:luci_mobile/models/addon_spec.dart';
-import 'package:luci_mobile/models/uci_change.dart';
-import 'package:luci_mobile/services/addon_catalog.dart';
-import 'package:luci_mobile/services/addon_planner.dart';
-import 'package:luci_mobile/services/uci_changeset_service.dart';
-import 'package:luci_mobile/state/addon_notifier.dart';
-import 'package:luci_mobile/state/feature_providers.dart';
-import 'package:luci_mobile/widgets/luci_app_bar.dart';
-import 'package:luci_mobile/widgets/luci_apply_progress.dart';
-import 'package:luci_mobile/widgets/luci_feature_gate.dart';
-import 'package:luci_mobile/widgets/luci_loading_states.dart';
+import 'package:router_pilot/l10n/failure_text.dart';
+import 'package:router_pilot/design/luci_design_system.dart';
+import 'package:router_pilot/l10n/addon_strings.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
+import 'package:router_pilot/models/addon_spec.dart';
+import 'package:router_pilot/models/uci_change.dart';
+import 'package:router_pilot/services/addon_catalog.dart';
+import 'package:router_pilot/services/addon_planner.dart';
+import 'package:router_pilot/services/uci_changeset_service.dart';
+import 'package:router_pilot/state/addon_notifier.dart';
+import 'package:router_pilot/state/feature_providers.dart';
+import 'package:router_pilot/widgets/luci_app_bar.dart';
+import 'package:router_pilot/widgets/luci_apply_progress.dart';
+import 'package:router_pilot/widgets/luci_feature_gate.dart';
+import 'package:router_pilot/widgets/luci_loading_states.dart';
 
 /// Configures one add-on package.
 ///

@@ -1,4 +1,4 @@
-import 'package:luci_mobile/l10n/app_localizations.dart';
+import 'package:router_pilot/l10n/app_localizations.dart';
 
 /// Resolves the string keys held in `AddonSpec` to translated text.
 ///

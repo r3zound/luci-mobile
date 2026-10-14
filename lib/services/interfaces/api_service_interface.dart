@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:luci_mobile/models/service_status.dart';
-import 'package:luci_mobile/models/station_info.dart';
+import 'package:router_pilot/models/service_status.dart';
+import 'package:router_pilot/models/station_info.dart';
 
 /// API service interface for LuCI RPC communication.
 ///

@@ -4,13 +4,13 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:luci_mobile/models/router_event.dart';
-import 'package:luci_mobile/services/background_monitor.dart';
-import 'package:luci_mobile/services/background_worker.dart';
-import 'package:luci_mobile/services/notification_service.dart';
-import 'package:luci_mobile/services/secure_storage_service.dart';
-import 'package:luci_mobile/state/app_state_provider.dart';
-import 'package:luci_mobile/utils/logger.dart';
+import 'package:router_pilot/models/router_event.dart';
+import 'package:router_pilot/services/background_monitor.dart';
+import 'package:router_pilot/services/background_worker.dart';
+import 'package:router_pilot/services/notification_service.dart';
+import 'package:router_pilot/services/secure_storage_service.dart';
+import 'package:router_pilot/state/app_state_provider.dart';
+import 'package:router_pilot/utils/logger.dart';
 
 @immutable
 class NotificationSettings {

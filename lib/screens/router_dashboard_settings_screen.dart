@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:luci_mobile/main.dart';
-import 'package:luci_mobile/models/dashboard_preferences.dart';
-import 'package:luci_mobile/widgets/luci_app_bar.dart';
-import 'package:luci_mobile/design/luci_design_system.dart';
-import 'package:luci_mobile/widgets/luci_animation_system.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
+import 'package:router_pilot/main.dart';
+import 'package:router_pilot/models/dashboard_preferences.dart';
+import 'package:router_pilot/widgets/luci_app_bar.dart';
+import 'package:router_pilot/design/luci_design_system.dart';
+import 'package:router_pilot/widgets/luci_animation_system.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
 
 class RouterDashboardSettingsScreen extends ConsumerStatefulWidget {
   final String routerId;

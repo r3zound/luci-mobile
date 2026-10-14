@@ -83,7 +83,7 @@
   "restartRadio": "라디오 재시작",
   "availableNetworks": "사용 가능한 네트워크",
   "hiddenNetworks": "숨겨진 네트워크",
-  "appTitle": "LuCI Mobile",
+  "appTitle": "RouterPilot",
   "exit": "종료",
   "loading": "로드 중...",
   "customizeDashboardDescription": "인터페이스 가시성 및 처리량 모니터링 구성",

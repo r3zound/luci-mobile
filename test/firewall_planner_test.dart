@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:luci_mobile/models/uci_change.dart';
-import 'package:luci_mobile/models/firewall_config.dart';
-import 'package:luci_mobile/services/firewall_planner.dart';
+import 'package:router_pilot/models/uci_change.dart';
+import 'package:router_pilot/models/firewall_config.dart';
+import 'package:router_pilot/services/firewall_planner.dart';
 
 final _firewall = <String, dynamic>{
   'z_lan': {
@@ -49,7 +49,7 @@ final _firewall = <String, dynamic>{
     'name': 'Outbound',
     'src': 'lan',
   },
-  'luci_mobile_block_aabb': {
+  'router_pilot_block_aabb': {
     '.type': 'rule',
     'name': 'Block laptop',
     'src': 'lan',
@@ -141,7 +141,7 @@ void main() {
       final rules = FirewallPlanner.trafficRules(_firewall);
       expect(
         rules
-            .firstWhere((r) => r.section.startsWith('luci_mobile_'))
+            .firstWhere((r) => r.section.startsWith('router_pilot_'))
             .ownedByApp,
         isTrue,
       );
@@ -167,6 +167,31 @@ void main() {
         _firewall,
       ).firstWhere((r) => r.ownedByApp);
       expect(FirewallPlanner.planRemoveRule(rule).single, isA<UciRemove>());
+    });
+
+    // A section name is written into the router's /etc/config, so a prefix is a
+    // data format rather than a constant. Rules carrying the pre-rename prefix
+    // are still ours: downgrading them to "the user's own" would only disable
+    // them and strand them on the router with no way back.
+    test('rules carrying the pre-rename prefix are still owned', () {
+      const legacy = <String, dynamic>{
+        'luci_mobile_game_server': {
+          '.type': 'rule',
+          'name': 'Block game server',
+          'src': 'lan',
+          'target': 'REJECT',
+        },
+      };
+      final rule = FirewallPlanner.trafficRules(legacy).single;
+      expect(rule.section, 'luci_mobile_game_server');
+      expect(rule.ownedByApp, isTrue);
+      expect(FirewallPlanner.planRemoveRule(rule).single, isA<UciRemove>());
+    });
+
+    test('a bare prefix without the separator is not owned', () {
+      expect(AppRulePrefix.isOwned('router_pilot'), isFalse);
+      expect(AppRulePrefix.isOwned('luci_mobile'), isFalse);
+      expect(AppRulePrefix.isOwned('user_rule'), isFalse);
     });
   });
 
@@ -276,7 +301,7 @@ void main() {
               as UciAdd;
       expect(add.config, 'firewall');
       expect(add.type, 'redirect');
-      expect(add.name, 'luci_mobile_game_server');
+      expect(add.name, 'router_pilot_game_server');
       expect(add.values['target'], 'DNAT');
       expect(add.values['src'], 'wan');
       expect(add.values['src_dport'], '25565');
@@ -296,7 +321,7 @@ void main() {
                 protocol: 'tcp',
               ).single
               as UciAdd;
-      expect(add.name, matches(RegExp(r'^luci_mobile_[a-z0-9_]+$')));
+      expect(add.name, matches(RegExp(r'^router_pilot_[a-z0-9_]+$')));
       expect(add.name, isNot(contains('__')));
     });
 
@@ -314,16 +339,16 @@ void main() {
             protocol: 'udp',
             takenSections: taken,
           );
-      expect((plan(const {}).single as UciAdd).name, 'luci_mobile_plex');
+      expect((plan(const {}).single as UciAdd).name, 'router_pilot_plex');
       expect(
-        (plan(const {'luci_mobile_plex'}).single as UciAdd).name,
-        'luci_mobile_plex_2',
+        (plan(const {'router_pilot_plex'}).single as UciAdd).name,
+        'router_pilot_plex_2',
       );
       expect(
-        (plan(const {'luci_mobile_plex', 'luci_mobile_plex_2'}).single
+        (plan(const {'router_pilot_plex', 'router_pilot_plex_2'}).single
                 as UciAdd)
             .name,
-        'luci_mobile_plex_3',
+        'router_pilot_plex_3',
       );
     });
 
@@ -331,11 +356,11 @@ void main() {
     // failed and could not be reverted must be re-added under its own name,
     // which re-sets it; a `_2` would leave the leftover blocking every apply.
     test('a name that is only an uncommitted add is free to re-add', () {
-      const names = {'luci_mobile_plex', 'cfg01'};
+      const names = {'router_pilot_plex', 'cfg01'};
       final pending = UciChangeSet.fromWire({
         'firewall': [
-          ['add', 'luci_mobile_plex', 'redirect'],
-          ['set', 'luci_mobile_plex', 'name', 'Plex'],
+          ['add', 'router_pilot_plex', 'redirect'],
+          ['set', 'router_pilot_plex', 'name', 'Plex'],
         ],
       });
       expect(FirewallPlanner.takenSectionNames(names, pending), {'cfg01'});

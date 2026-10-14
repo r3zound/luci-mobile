@@ -2,15 +2,15 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:luci_mobile/state/app_state.dart';
-import 'package:luci_mobile/l10n/failure_text.dart';
-import 'package:luci_mobile/main.dart';
+import 'package:router_pilot/state/app_state.dart';
+import 'package:router_pilot/l10n/failure_text.dart';
+import 'package:router_pilot/main.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:luci_mobile/config/app_config.dart';
-import 'package:luci_mobile/services/secure_storage_service.dart';
-import 'package:luci_mobile/utils/url_parser.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
+import 'package:router_pilot/config/app_config.dart';
+import 'package:router_pilot/services/secure_storage_service.dart';
+import 'package:router_pilot/utils/url_parser.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});

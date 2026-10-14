@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:luci_mobile/l10n/failure_text.dart';
-import 'package:luci_mobile/utils/uci_values.dart';
-import 'package:luci_mobile/state/app_state.dart';
-import 'package:luci_mobile/main.dart';
-import 'package:luci_mobile/navigation/luci_tab.dart';
-import 'package:luci_mobile/widgets/luci_app_bar.dart';
-import 'package:luci_mobile/widgets/luci_animation_system.dart';
-import 'package:luci_mobile/models/glinet_data.dart';
-import 'package:luci_mobile/models/router.dart' as model;
-import 'package:luci_mobile/utils/wifi_utils.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
+import 'package:router_pilot/l10n/failure_text.dart';
+import 'package:router_pilot/utils/uci_values.dart';
+import 'package:router_pilot/state/app_state.dart';
+import 'package:router_pilot/main.dart';
+import 'package:router_pilot/navigation/luci_tab.dart';
+import 'package:router_pilot/widgets/luci_app_bar.dart';
+import 'package:router_pilot/widgets/luci_animation_system.dart';
+import 'package:router_pilot/models/glinet_data.dart';
+import 'package:router_pilot/models/router.dart' as model;
+import 'package:router_pilot/utils/wifi_utils.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({super.key});

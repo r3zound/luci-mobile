@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:luci_mobile/services/traffic_service.dart';
+import 'package:router_pilot/services/traffic_service.dart';
 
 /// The exact shape `nlbwmon-action download -f json` returns, measured on
 /// OpenWrt 24.10.

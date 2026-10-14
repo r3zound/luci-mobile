@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:luci_mobile/services/api_service.dart';
+import 'package:router_pilot/services/api_service.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

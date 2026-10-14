@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:luci_mobile/models/app_failure.dart';
-import 'package:luci_mobile/services/api_service.dart';
-import 'package:luci_mobile/services/mock_api_service.dart';
-import 'package:luci_mobile/services/mock_auth_service.dart';
-import 'package:luci_mobile/state/app_state.dart';
+import 'package:router_pilot/models/app_failure.dart';
+import 'package:router_pilot/services/api_service.dart';
+import 'package:router_pilot/services/mock_api_service.dart';
+import 'package:router_pilot/services/mock_auth_service.dart';
+import 'package:router_pilot/state/app_state.dart';
 
 class _FailingRestartApiService extends MockApiService {
   _FailingRestartApiService({

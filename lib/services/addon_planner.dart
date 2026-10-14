@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 
-import 'package:luci_mobile/utils/uci_values.dart';
-import 'package:luci_mobile/models/addon_spec.dart';
-import 'package:luci_mobile/models/uci_change.dart';
+import 'package:router_pilot/utils/uci_values.dart';
+import 'package:router_pilot/models/addon_spec.dart';
+import 'package:router_pilot/models/uci_change.dart';
 
 /// One editable section of an add-on's config.
 @immutable

@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:luci_mobile/main.dart';
-import 'package:luci_mobile/widgets/luci_app_bar.dart';
-import 'package:luci_mobile/screens/dashboard_settings_list_screen.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
+import 'package:router_pilot/main.dart';
+import 'package:router_pilot/widgets/luci_app_bar.dart';
+import 'package:router_pilot/screens/dashboard_settings_list_screen.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
 
 class AppPreferencesScreen extends ConsumerWidget {
   const AppPreferencesScreen({super.key});

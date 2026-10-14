@@ -1,9 +1,11 @@
 # Privacy Policy
 
-**LuCI Mobile**  
-Last updated: July 7, 2025
+**RouterPilot**  
+Last updated: October 14, 2026
 
-LuCI Mobile ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how our mobile application ("App") collects, uses, and safeguards your information when you use the App to manage your OpenWrt/LuCI routers.
+RouterPilot ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how our mobile application ("App") collects, uses, and safeguards your information when you use the App to manage your OpenWrt/LuCI routers and CPEs.
+
+RouterPilot is a fork of the open-source project LuCI Mobile. The data practices described here are inherited from that project and are unchanged by the modifications listed in the README.
 
 ## 1. Information We Collect
 
@@ -29,6 +31,7 @@ LuCI Mobile ("we", "our", or "us") is committed to protecting your privacy. This
 
 - We do **not** share, sell, or disclose your information to any third parties.
 - All communication is strictly between your device and your router.
+- The App contains no advertising, analytics, or tracking SDKs.
 
 ## 4. Security
 
@@ -48,5 +51,5 @@ LuCI Mobile ("we", "our", or "us") is committed to protecting your privacy. This
 
 ## 7. Contact Us
 
-If you have any questions or concerns about this Privacy Policy, please contact us at:  
-[github.com/cogwheel0/luci-mobile/issues] 
+If you have any questions or concerns about this Privacy Policy, please open an issue at:  
+https://github.com/r3zound/router-pilot/issues

@@ -1,5 +1,5 @@
-import 'package:luci_mobile/models/glinet_data.dart';
-import 'package:luci_mobile/services/interfaces/glinet_api_service_interface.dart';
+import 'package:router_pilot/models/glinet_data.dart';
+import 'package:router_pilot/services/interfaces/glinet_api_service_interface.dart';
 
 class MockGlInetApiService implements IGlInetApiService {
   @override

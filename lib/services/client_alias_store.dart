@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:luci_mobile/models/station_info.dart';
-import 'package:luci_mobile/services/secure_storage_service.dart';
-import 'package:luci_mobile/utils/logger.dart';
+import 'package:router_pilot/models/station_info.dart';
+import 'package:router_pilot/services/secure_storage_service.dart';
+import 'package:router_pilot/utils/logger.dart';
 
 /// Per-router, on-device display names for clients.
 ///

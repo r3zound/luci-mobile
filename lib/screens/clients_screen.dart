@@ -2,18 +2,18 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:luci_mobile/l10n/failure_text.dart';
-import 'package:luci_mobile/state/app_state_provider.dart';
-import 'package:luci_mobile/models/client.dart';
-import 'package:luci_mobile/screens/client_detail_screen.dart';
-import 'package:luci_mobile/state/event_feed_notifier.dart';
-import 'package:luci_mobile/services/api_service.dart';
-import 'package:luci_mobile/widgets/luci_app_bar.dart';
-import 'package:luci_mobile/design/luci_design_system.dart';
-import 'package:luci_mobile/widgets/luci_loading_states.dart';
-import 'package:luci_mobile/widgets/luci_refresh_components.dart';
-import 'package:luci_mobile/widgets/luci_animation_system.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
+import 'package:router_pilot/l10n/failure_text.dart';
+import 'package:router_pilot/state/app_state_provider.dart';
+import 'package:router_pilot/models/client.dart';
+import 'package:router_pilot/screens/client_detail_screen.dart';
+import 'package:router_pilot/state/event_feed_notifier.dart';
+import 'package:router_pilot/services/api_service.dart';
+import 'package:router_pilot/widgets/luci_app_bar.dart';
+import 'package:router_pilot/design/luci_design_system.dart';
+import 'package:router_pilot/widgets/luci_loading_states.dart';
+import 'package:router_pilot/widgets/luci_refresh_components.dart';
+import 'package:router_pilot/widgets/luci_animation_system.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
 
 class ClientsScreen extends ConsumerStatefulWidget {
   const ClientsScreen({super.key});

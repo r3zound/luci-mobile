@@ -2,19 +2,19 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:luci_mobile/l10n/failure_text.dart';
-import 'package:luci_mobile/utils/uci_values.dart';
-import 'package:luci_mobile/main.dart';
-import 'package:luci_mobile/models/glinet_data.dart';
-import 'package:luci_mobile/models/interface.dart';
-import 'package:luci_mobile/utils/wifi_utils.dart';
-import 'package:luci_mobile/widgets/luci_app_bar.dart';
-import 'package:luci_mobile/design/luci_design_system.dart';
-import 'package:luci_mobile/widgets/luci_loading_states.dart';
-import 'package:luci_mobile/widgets/luci_refresh_components.dart';
-import 'package:luci_mobile/screens/wifi_scan_screen.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
-import 'package:luci_mobile/utils/format_bytes.dart';
+import 'package:router_pilot/l10n/failure_text.dart';
+import 'package:router_pilot/utils/uci_values.dart';
+import 'package:router_pilot/main.dart';
+import 'package:router_pilot/models/glinet_data.dart';
+import 'package:router_pilot/models/interface.dart';
+import 'package:router_pilot/utils/wifi_utils.dart';
+import 'package:router_pilot/widgets/luci_app_bar.dart';
+import 'package:router_pilot/design/luci_design_system.dart';
+import 'package:router_pilot/widgets/luci_loading_states.dart';
+import 'package:router_pilot/widgets/luci_refresh_components.dart';
+import 'package:router_pilot/screens/wifi_scan_screen.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
+import 'package:router_pilot/utils/format_bytes.dart';
 
 class InterfacesScreen extends ConsumerStatefulWidget {
   final String? scrollToInterface;

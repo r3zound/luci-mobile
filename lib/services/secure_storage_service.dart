@@ -1,6 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert';
-import 'package:luci_mobile/models/router.dart';
+import 'package:router_pilot/models/router.dart';
 import '../utils/logger.dart';
 
 class SecureStorageService {

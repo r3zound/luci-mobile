@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:luci_mobile/models/client.dart';
-import 'package:luci_mobile/models/router_event.dart';
-import 'package:luci_mobile/services/event_log.dart';
-import 'package:luci_mobile/services/secure_storage_service.dart';
-import 'package:luci_mobile/state/app_state_provider.dart';
+import 'package:router_pilot/models/client.dart';
+import 'package:router_pilot/models/router_event.dart';
+import 'package:router_pilot/services/event_log.dart';
+import 'package:router_pilot/services/secure_storage_service.dart';
+import 'package:router_pilot/state/app_state_provider.dart';
 
 final eventLogProvider = Provider<EventLog>(
   (ref) => EventLog(SecureStorageService()),

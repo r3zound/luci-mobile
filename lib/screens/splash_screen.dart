@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:luci_mobile/services/secure_storage_service.dart';
-import 'package:luci_mobile/config/app_config.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
+import 'package:router_pilot/services/secure_storage_service.dart';
+import 'package:router_pilot/config/app_config.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

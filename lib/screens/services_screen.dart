@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:luci_mobile/l10n/failure_text.dart';
-import 'package:luci_mobile/design/luci_design_system.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
-import 'package:luci_mobile/models/router_capabilities.dart';
-import 'package:luci_mobile/models/service_status.dart';
-import 'package:luci_mobile/state/app_state_provider.dart';
-import 'package:luci_mobile/state/feature_providers.dart';
-import 'package:luci_mobile/widgets/luci_app_bar.dart';
-import 'package:luci_mobile/widgets/luci_feature_gate.dart';
-import 'package:luci_mobile/widgets/luci_loading_states.dart';
+import 'package:router_pilot/l10n/failure_text.dart';
+import 'package:router_pilot/design/luci_design_system.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
+import 'package:router_pilot/models/router_capabilities.dart';
+import 'package:router_pilot/models/service_status.dart';
+import 'package:router_pilot/state/app_state_provider.dart';
+import 'package:router_pilot/state/feature_providers.dart';
+import 'package:router_pilot/widgets/luci_app_bar.dart';
+import 'package:router_pilot/widgets/luci_feature_gate.dart';
+import 'package:router_pilot/widgets/luci_loading_states.dart';
 
 final servicesProvider = FutureProvider<List<ServiceStatus>>((ref) async {
   final session = ref.watch(sessionProvider);

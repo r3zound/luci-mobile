@@ -4,7 +4,7 @@ class AppConfig {
   /// The About dialog links here, so this is the one line to change when the
   /// project moves - nothing else in the app hard-codes a repository address.
   static const String githubRepositoryUrl =
-      'https://github.com/r3zound/luci-mobile';
+      'https://github.com/r3zound/router-pilot';
 
   // GitHub issues URL
   static const String githubIssuesUrl = '$githubRepositoryUrl/issues';

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-import 'package:luci_mobile/widgets/luci_loading_states.dart';
-import 'package:luci_mobile/l10n/app_localizations.dart';
-import 'package:luci_mobile/design/luci_design_system.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
-import 'package:luci_mobile/models/router_event.dart';
-import 'package:luci_mobile/state/event_feed_notifier.dart';
-import 'package:luci_mobile/widgets/luci_app_bar.dart';
+import 'package:router_pilot/widgets/luci_loading_states.dart';
+import 'package:router_pilot/l10n/app_localizations.dart';
+import 'package:router_pilot/design/luci_design_system.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
+import 'package:router_pilot/models/router_event.dart';
+import 'package:router_pilot/state/event_feed_notifier.dart';
+import 'package:router_pilot/widgets/luci_app_bar.dart';
 
 /// What has changed on the router while the app was watching.
 class EventFeedScreen extends ConsumerWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:luci_mobile/state/app_state_provider.dart';
-import 'package:luci_mobile/state/router_session.dart';
+import 'package:router_pilot/state/app_state_provider.dart';
+import 'package:router_pilot/state/router_session.dart';
 
 /// Discards the result of any write whose session went away mid-flight.
 ///

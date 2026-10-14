@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:luci_mobile/services/secure_storage_service.dart';
-import 'package:luci_mobile/models/router_event.dart';
-import 'package:luci_mobile/services/background_monitor.dart';
-import 'package:luci_mobile/services/background_worker.dart';
-import 'package:luci_mobile/services/event_log.dart';
+import 'package:router_pilot/services/secure_storage_service.dart';
+import 'package:router_pilot/models/router_event.dart';
+import 'package:router_pilot/services/background_monitor.dart';
+import 'package:router_pilot/services/background_worker.dart';
+import 'package:router_pilot/services/event_log.dart';
 
 final _at = DateTime.utc(2026, 9, 20, 12);
 

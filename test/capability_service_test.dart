@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:luci_mobile/models/router_capabilities.dart';
-import 'package:luci_mobile/services/api_service.dart';
-import 'package:luci_mobile/services/capability_service.dart';
-import 'package:luci_mobile/services/mock_api_service.dart';
-import 'package:luci_mobile/state/router_session.dart';
+import 'package:router_pilot/models/router_capabilities.dart';
+import 'package:router_pilot/services/api_service.dart';
+import 'package:router_pilot/services/capability_service.dart';
+import 'package:router_pilot/services/mock_api_service.dart';
+import 'package:router_pilot/state/router_session.dart';
 
 const _session = RouterSession(
   routerId: 'r1',

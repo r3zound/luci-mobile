@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:luci_mobile/models/client.dart';
-import 'package:luci_mobile/models/glinet_data.dart';
-import 'package:luci_mobile/services/glinet_api_service.dart';
-import 'package:luci_mobile/services/mock_glinet_api_service.dart';
-import 'package:luci_mobile/utils/http_client_manager.dart';
-import 'package:luci_mobile/utils/wifi_utils.dart';
+import 'package:router_pilot/models/client.dart';
+import 'package:router_pilot/models/glinet_data.dart';
+import 'package:router_pilot/services/glinet_api_service.dart';
+import 'package:router_pilot/services/mock_glinet_api_service.dart';
+import 'package:router_pilot/utils/http_client_manager.dart';
+import 'package:router_pilot/utils/wifi_utils.dart';
 
 void main() {
   test('session state can be cleared after authentication', () async {

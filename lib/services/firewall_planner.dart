@@ -1,7 +1,7 @@
-import 'package:luci_mobile/utils/ipv4.dart';
-import 'package:luci_mobile/utils/uci_values.dart';
-import 'package:luci_mobile/models/firewall_config.dart';
-import 'package:luci_mobile/models/uci_change.dart';
+import 'package:router_pilot/utils/ipv4.dart';
+import 'package:router_pilot/utils/uci_values.dart';
+import 'package:router_pilot/models/firewall_config.dart';
+import 'package:router_pilot/models/uci_change.dart';
 
 /// Reads and edits `/etc/config/firewall` and the routes in
 /// `/etc/config/network`.
@@ -13,7 +13,11 @@ class FirewallPlanner {
   const FirewallPlanner._();
 
   /// Sections this app creates and therefore owns.
-  static const String ownedPrefix = 'luci_mobile_';
+  static const String ownedPrefix = AppRulePrefix.current;
+
+  /// Sections an earlier build — or upstream LuCI Mobile — created. Still
+  /// treated as ours so they stay removable; see [AppRulePrefix].
+  static const String legacyOwnedPrefix = AppRulePrefix.legacy;
 
   // --------------------------------------------------------------- reading
 

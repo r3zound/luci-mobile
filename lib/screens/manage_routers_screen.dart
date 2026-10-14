@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:luci_mobile/main.dart';
-import 'package:luci_mobile/navigation/luci_tab.dart';
-import 'package:luci_mobile/models/router.dart' as model;
-import 'package:luci_mobile/widgets/luci_app_bar.dart';
-import 'package:luci_mobile/utils/url_parser.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
+import 'package:router_pilot/main.dart';
+import 'package:router_pilot/navigation/luci_tab.dart';
+import 'package:router_pilot/models/router.dart' as model;
+import 'package:router_pilot/widgets/luci_app_bar.dart';
+import 'package:router_pilot/utils/url_parser.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
 
 class ManageRoutersScreen extends ConsumerStatefulWidget {
   const ManageRoutersScreen({super.key});

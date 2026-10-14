@@ -83,7 +83,7 @@
   "restartRadio": "Riavvia radio",
   "availableNetworks": "RETI DISPONIBILI",
   "hiddenNetworks": "RETI NASCOSTE",
-  "appTitle": "LuCI Mobile",
+  "appTitle": "RouterPilot",
   "exit": "Esci",
   "loading": "Caricamento...",
   "customizeDashboardDescription": "Configura la visibilità dell'interfaccia e il monitoraggio del throughput",

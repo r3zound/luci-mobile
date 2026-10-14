@@ -83,7 +83,7 @@
   "restartRadio": "Restartovat rádio",
   "availableNetworks": "DOSTUPNÉ SÍTĚ",
   "hiddenNetworks": "SKRYTÉ SÍTĚ",
-  "appTitle": "LuCI Mobile",
+  "appTitle": "RouterPilot",
   "exit": "Ukončit",
   "loading": "Načítání...",
   "customizeDashboardDescription": "Nakonfigurujte viditelnost rozhraní a sledování propustnosti",

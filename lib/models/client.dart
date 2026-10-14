@@ -1,4 +1,4 @@
-import 'package:luci_mobile/utils/wifi_utils.dart';
+import 'package:router_pilot/utils/wifi_utils.dart';
 
 enum ConnectionType { wired, wireless, unknown }
 

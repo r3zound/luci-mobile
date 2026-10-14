@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:luci_mobile/services/mock_api_service.dart';
+import 'package:router_pilot/services/mock_api_service.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

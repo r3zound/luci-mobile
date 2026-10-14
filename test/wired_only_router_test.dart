@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:luci_mobile/models/interface.dart';
+import 'package:router_pilot/models/interface.dart';
 
 /// Tests for wired-only router support (GitHub issues #46, #24, #6).
 ///

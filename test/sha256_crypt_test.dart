@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:luci_mobile/utils/sha256_crypt.dart';
+import 'package:router_pilot/utils/sha256_crypt.dart';
 
 void main() {
   group('SHA-256 crypt', () {

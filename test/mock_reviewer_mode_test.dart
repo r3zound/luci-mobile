@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:luci_mobile/utils/uci_values.dart';
-import 'package:luci_mobile/services/client_config_planner.dart';
-import 'package:luci_mobile/services/mock_api_service.dart';
+import 'package:router_pilot/utils/uci_values.dart';
+import 'package:router_pilot/services/client_config_planner.dart';
+import 'package:router_pilot/services/mock_api_service.dart';
 
 /// Reviewer mode is what App Store review sees. Every gap here ships as an
 /// empty screen or a control that snaps back, so these are checked as

@@ -1,5 +1,5 @@
-import 'package:luci_mobile/services/interfaces/api_service_interface.dart';
-import 'package:luci_mobile/state/router_session.dart';
+import 'package:router_pilot/services/interfaces/api_service_interface.dart';
+import 'package:router_pilot/state/router_session.dart';
 
 /// Reading UCI values, whatever shape they arrive in.
 ///

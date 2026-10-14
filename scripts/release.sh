@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# LuCI Mobile Release Script (CI-driven)
+# RouterPilot Release Script (CI-driven)
 # Usage: ./scripts/release.sh [major|minor|patch]
 
 set -e

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:luci_mobile/services/api_service.dart';
+import 'package:router_pilot/services/api_service.dart';
 
 void main() {
   test('UCI calls reject errors and can delete a single option', () async {

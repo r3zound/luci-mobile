@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-import 'package:luci_mobile/models/router_event.dart';
-import 'package:luci_mobile/utils/logger.dart';
+import 'package:router_pilot/models/router_event.dart';
+import 'package:router_pilot/utils/logger.dart';
 
 /// Shows the event feed's findings as system notifications.
 ///

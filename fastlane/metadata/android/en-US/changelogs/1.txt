@@ -1,1 +1,12 @@
-Initial release of LuCI Mobile. 
+RouterPilot 1.0.0 — first release under this name.
+
+A modified fork of luci-mobile by Tunap Paul (cogwheel0). Notable changes since the fork:
+
+• Renamed from LuCI Mobile, with a new app icon and a new application id.
+• Translations completed and corrected for all 14 languages.
+• Wired and wireless clients are now distinguished reliably.
+• Log viewer highlights matching lines and lets you jump between older and newer entries.
+• Device page simplified: fewer cards, same information.
+• Better compatibility across OpenWrt distributions.
+
+Firewall and traffic rules created by earlier builds are still recognised and can be removed.

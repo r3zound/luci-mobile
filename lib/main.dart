@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:workmanager/workmanager.dart';
-import 'package:luci_mobile/services/background_worker.dart';
-import 'package:luci_mobile/utils/logger.dart';
+import 'package:router_pilot/services/background_worker.dart';
+import 'package:router_pilot/utils/logger.dart';
 
-import 'package:luci_mobile/state/app_state_provider.dart';
-import 'package:luci_mobile/l10n/app_localizations.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
-import 'package:luci_mobile/screens/login_screen.dart';
-import 'package:luci_mobile/screens/main_screen.dart';
-import 'package:luci_mobile/screens/settings_screen.dart';
-import 'package:luci_mobile/screens/splash_screen.dart';
+import 'package:router_pilot/state/app_state_provider.dart';
+import 'package:router_pilot/l10n/app_localizations.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
+import 'package:router_pilot/screens/login_screen.dart';
+import 'package:router_pilot/screens/main_screen.dart';
+import 'package:router_pilot/screens/settings_screen.dart';
+import 'package:router_pilot/screens/splash_screen.dart';
 
-export 'package:luci_mobile/state/app_state_provider.dart'
+export 'package:router_pilot/state/app_state_provider.dart'
     show appStateProvider;
 
 void main() {

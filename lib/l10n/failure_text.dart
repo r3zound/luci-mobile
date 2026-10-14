@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 
-import 'package:luci_mobile/l10n/luci_localizations.dart';
-import 'package:luci_mobile/models/app_failure.dart';
-import 'package:luci_mobile/services/api_service.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
+import 'package:router_pilot/models/app_failure.dart';
+import 'package:router_pilot/services/api_service.dart';
 
 /// The wording for failures raised where there is no `BuildContext`.
 ///

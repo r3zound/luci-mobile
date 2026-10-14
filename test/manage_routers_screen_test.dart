@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:luci_mobile/main.dart';
-import 'package:luci_mobile/models/router.dart' as model;
-import 'package:luci_mobile/screens/manage_routers_screen.dart';
-import 'package:luci_mobile/services/mock_api_service.dart';
-import 'package:luci_mobile/services/mock_auth_service.dart';
-import 'package:luci_mobile/state/app_state.dart';
+import 'package:router_pilot/main.dart';
+import 'package:router_pilot/models/router.dart' as model;
+import 'package:router_pilot/screens/manage_routers_screen.dart';
+import 'package:router_pilot/services/mock_api_service.dart';
+import 'package:router_pilot/services/mock_auth_service.dart';
+import 'package:router_pilot/state/app_state.dart';
 
 void main() {
   testWidgets('fallback removal requires confirmation', (tester) async {

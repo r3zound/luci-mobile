@@ -4,13 +4,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart' show BuildContext;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:luci_mobile/models/router.dart';
-import 'package:luci_mobile/services/interfaces/auth_service_interface.dart';
-import 'package:luci_mobile/services/mock_api_service.dart';
-import 'package:luci_mobile/services/mock_auth_service.dart';
-import 'package:luci_mobile/services/router_service.dart';
-import 'package:luci_mobile/state/app_state.dart';
-import 'package:luci_mobile/utils/http_client_manager.dart';
+import 'package:router_pilot/models/router.dart';
+import 'package:router_pilot/services/interfaces/auth_service_interface.dart';
+import 'package:router_pilot/services/mock_api_service.dart';
+import 'package:router_pilot/services/mock_auth_service.dart';
+import 'package:router_pilot/services/router_service.dart';
+import 'package:router_pilot/state/app_state.dart';
+import 'package:router_pilot/utils/http_client_manager.dart';
 
 /// Answers from the reviewer fixtures, except that the calls in
 /// [unansweredOnce] fail once the way a router hit by openwrt/luci#9091 fails

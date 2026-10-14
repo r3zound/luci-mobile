@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:luci_mobile/models/service_status.dart';
+import 'package:router_pilot/models/service_status.dart';
 
 void main() {
   group('reading rc.list entries', () {

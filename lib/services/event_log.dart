@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-import 'package:luci_mobile/models/client.dart';
-import 'package:luci_mobile/models/router_event.dart';
-import 'package:luci_mobile/services/secure_storage_service.dart';
-import 'package:luci_mobile/utils/logger.dart';
+import 'package:router_pilot/models/client.dart';
+import 'package:router_pilot/models/router_event.dart';
+import 'package:router_pilot/services/secure_storage_service.dart';
+import 'package:router_pilot/utils/logger.dart';
 
 /// A snapshot of the things the feed watches, taken on each poll.
 @immutable

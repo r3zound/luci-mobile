@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:luci_mobile/models/client.dart';
+import 'package:router_pilot/models/client.dart';
 
 /// Tests for connection type classification (GitHub issue #5).
 ///

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:luci_mobile/l10n/failure_text.dart';
-import 'package:luci_mobile/utils/ipv4.dart';
-import 'package:luci_mobile/design/luci_design_system.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
-import 'package:luci_mobile/models/firewall_config.dart';
-import 'package:luci_mobile/models/uci_change.dart';
-import 'package:luci_mobile/services/firewall_planner.dart';
-import 'package:luci_mobile/state/firewall_notifier.dart';
-import 'package:luci_mobile/widgets/luci_apply_progress.dart';
-import 'package:luci_mobile/widgets/luci_loading_states.dart';
+import 'package:router_pilot/l10n/failure_text.dart';
+import 'package:router_pilot/utils/ipv4.dart';
+import 'package:router_pilot/design/luci_design_system.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
+import 'package:router_pilot/models/firewall_config.dart';
+import 'package:router_pilot/models/uci_change.dart';
+import 'package:router_pilot/services/firewall_planner.dart';
+import 'package:router_pilot/state/firewall_notifier.dart';
+import 'package:router_pilot/widgets/luci_apply_progress.dart';
+import 'package:router_pilot/widgets/luci_loading_states.dart';
 
 /// Port forwards, traffic rules, zones and static routes.
 ///

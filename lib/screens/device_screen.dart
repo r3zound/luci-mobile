@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:luci_mobile/design/luci_design_system.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
-import 'package:luci_mobile/services/mu300_service.dart';
-import 'package:luci_mobile/state/app_state_provider.dart';
-import 'package:luci_mobile/utils/format_bytes.dart';
-import 'package:luci_mobile/widgets/luci_app_bar.dart';
+import 'package:router_pilot/design/luci_design_system.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
+import 'package:router_pilot/services/mu300_service.dart';
+import 'package:router_pilot/state/app_state_provider.dart';
+import 'package:router_pilot/utils/format_bytes.dart';
+import 'package:router_pilot/widgets/luci_app_bar.dart';
 
 final mu300ServiceProvider = Provider<Mu300Service?>((ref) {
   final api = ref.watch(apiServiceProvider);

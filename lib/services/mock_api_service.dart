@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:luci_mobile/services/interfaces/api_service_interface.dart';
-import 'package:luci_mobile/config/app_config.dart';
-import 'package:luci_mobile/models/service_status.dart';
-import 'package:luci_mobile/models/station_info.dart';
+import 'package:router_pilot/services/interfaces/api_service_interface.dart';
+import 'package:router_pilot/config/app_config.dart';
+import 'package:router_pilot/models/service_status.dart';
+import 'package:router_pilot/models/station_info.dart';
 
 class MockApiService implements IApiService {
   static final Random _random = Random();

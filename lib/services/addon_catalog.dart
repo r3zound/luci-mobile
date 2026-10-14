@@ -1,5 +1,5 @@
-import 'package:luci_mobile/models/addon_spec.dart';
-import 'package:luci_mobile/models/router_capabilities.dart';
+import 'package:router_pilot/models/addon_spec.dart';
+import 'package:router_pilot/models/router_capabilities.dart';
 
 /// The add-ons the app knows how to configure.
 ///

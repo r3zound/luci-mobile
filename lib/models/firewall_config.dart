@@ -1,5 +1,35 @@
 import 'package:flutter/foundation.dart';
 
+/// Section-name prefixes for UCI rules this app creates.
+///
+/// These strings are written into the *router's* `/etc/config`, not just into
+/// this app's memory, so they behave like a data format rather than a constant:
+/// renaming one after release would turn every rule a user already created into
+/// something the app no longer recognises — neither editable nor removable.
+///
+/// They live in the model layer because both planners need them and the model
+/// is the only one of the three that has no dependencies of its own.
+class AppRulePrefix {
+  const AppRulePrefix._();
+
+  /// Prefix stamped on rules created by this build.
+  static const String current = 'router_pilot_';
+
+  /// Prefix stamped before the RouterPilot rename. Still honoured so rules
+  /// left behind by an earlier build — or written by upstream LuCI Mobile —
+  /// stay manageable here instead of becoming orphans the app can neither edit
+  /// nor delete. Lifting a block on one of these *removes* the section, exactly
+  /// as it would have for a rule this build created itself.
+  static const String legacy = 'luci_mobile_';
+
+  /// Whether [section] is a rule this app is allowed to remove outright.
+  ///
+  /// Anything unrecognised is only ever disabled, so configuration the user
+  /// wrote by hand is never silently destroyed.
+  static bool isOwned(String section) =>
+      section.startsWith(current) || section.startsWith(legacy);
+}
+
 /// A firewall zone (`config zone`).
 @immutable
 class FirewallZone {
@@ -94,7 +124,7 @@ class TrafficRule {
   final String? destPort;
 
   /// True when this app created the rule, and may therefore delete it.
-  bool get ownedByApp => section.startsWith('luci_mobile_');
+  bool get ownedByApp => AppRulePrefix.isOwned(section);
 }
 
 /// A static route (`config route` in `/etc/config/network`).

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 
-import 'package:luci_mobile/utils/http_client_manager.dart';
+import 'package:router_pilot/utils/http_client_manager.dart';
 
 /// Answers "is this router answering HTTP at all?" without credentials.
 ///

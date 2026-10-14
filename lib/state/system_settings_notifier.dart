@@ -3,16 +3,16 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:luci_mobile/utils/uci_values.dart';
-import 'package:luci_mobile/models/router.dart' as model;
-import 'package:luci_mobile/models/uci_change.dart';
-import 'package:luci_mobile/services/background_monitor.dart';
-import 'package:luci_mobile/services/background_worker.dart';
-import 'package:luci_mobile/services/secure_storage_service.dart';
-import 'package:luci_mobile/services/uci_changeset_service.dart';
-import 'package:luci_mobile/state/app_state_provider.dart';
-import 'package:luci_mobile/state/uci_mutation.dart';
-import 'package:luci_mobile/utils/logger.dart';
+import 'package:router_pilot/utils/uci_values.dart';
+import 'package:router_pilot/models/router.dart' as model;
+import 'package:router_pilot/models/uci_change.dart';
+import 'package:router_pilot/services/background_monitor.dart';
+import 'package:router_pilot/services/background_worker.dart';
+import 'package:router_pilot/services/secure_storage_service.dart';
+import 'package:router_pilot/services/uci_changeset_service.dart';
+import 'package:router_pilot/state/app_state_provider.dart';
+import 'package:router_pilot/state/uci_mutation.dart';
+import 'package:router_pilot/utils/logger.dart';
 
 /// Hostname and time settings out of the `system` config.
 @immutable

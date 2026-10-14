@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart' as crypto;
 import 'package:dio/dio.dart';
-import 'package:luci_mobile/models/glinet_data.dart';
-import 'package:luci_mobile/services/interfaces/glinet_api_service_interface.dart';
-import 'package:luci_mobile/utils/http_client_manager.dart';
-import 'package:luci_mobile/utils/logger.dart';
-import 'package:luci_mobile/utils/sha256_crypt.dart';
-import 'package:luci_mobile/utils/wifi_utils.dart';
+import 'package:router_pilot/models/glinet_data.dart';
+import 'package:router_pilot/services/interfaces/glinet_api_service_interface.dart';
+import 'package:router_pilot/utils/http_client_manager.dart';
+import 'package:router_pilot/utils/logger.dart';
+import 'package:router_pilot/utils/sha256_crypt.dart';
+import 'package:router_pilot/utils/wifi_utils.dart';
 
 /// Fetches supplementary data exposed by GL.iNet's `/rpc` API.
 class GlInetApiService implements IGlInetApiService {

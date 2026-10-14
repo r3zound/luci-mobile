@@ -1,0 +1,19 @@
+RouterPilot
+Copyright (C) 2026 r3zound
+
+This product is a modified version of luci-mobile.
+
+Original work:
+    luci-mobile — Copyright (C) 2025 Tunap Paul (cogwheel0)
+    https://github.com/cogwheel0/luci-mobile
+
+The original work is licensed under the GNU General Public License,
+version 3. The full text of that license is distributed with this program in
+the file LICENSE, and this modified version is distributed under the same
+license and the same terms, as required by sections 4 and 5 of the GPL-3.0.
+
+A description of the changes made in this modified version is in the
+"Upstream and modifications" section of README.md.
+
+OpenWrt is a registered trademark of the OpenWrt project. This program is not
+affiliated with or endorsed by the OpenWrt project.

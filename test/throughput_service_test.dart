@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:luci_mobile/services/throughput_service.dart';
+import 'package:router_pilot/services/throughput_service.dart';
 
 void main() {
   // _asNum is private; exercise it through the public updateThroughput path

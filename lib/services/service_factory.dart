@@ -1,16 +1,16 @@
-import 'package:luci_mobile/services/interfaces/auth_service_interface.dart';
-import 'package:luci_mobile/services/interfaces/api_service_interface.dart';
-import 'package:luci_mobile/services/interfaces/glinet_api_service_interface.dart';
-import 'package:luci_mobile/services/auth_service.dart';
-import 'package:luci_mobile/services/api_service.dart';
-import 'package:luci_mobile/services/glinet_api_service.dart';
-import 'package:luci_mobile/services/mock_auth_service.dart';
-import 'package:luci_mobile/services/mock_api_service.dart';
-import 'package:luci_mobile/services/mock_glinet_api_service.dart';
-import 'package:luci_mobile/services/secure_storage_service.dart';
-import 'package:luci_mobile/services/router_service.dart';
-import 'package:luci_mobile/services/throughput_service.dart';
-import 'package:luci_mobile/utils/http_client_manager.dart';
+import 'package:router_pilot/services/interfaces/auth_service_interface.dart';
+import 'package:router_pilot/services/interfaces/api_service_interface.dart';
+import 'package:router_pilot/services/interfaces/glinet_api_service_interface.dart';
+import 'package:router_pilot/services/auth_service.dart';
+import 'package:router_pilot/services/api_service.dart';
+import 'package:router_pilot/services/glinet_api_service.dart';
+import 'package:router_pilot/services/mock_auth_service.dart';
+import 'package:router_pilot/services/mock_api_service.dart';
+import 'package:router_pilot/services/mock_glinet_api_service.dart';
+import 'package:router_pilot/services/secure_storage_service.dart';
+import 'package:router_pilot/services/router_service.dart';
+import 'package:router_pilot/services/throughput_service.dart';
+import 'package:router_pilot/utils/http_client_manager.dart';
 
 abstract class ServiceFactory {
   IAuthService createAuthService();

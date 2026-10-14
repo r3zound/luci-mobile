@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:luci_mobile/main.dart';
-import 'package:luci_mobile/widgets/luci_app_bar.dart';
-import 'package:luci_mobile/design/luci_design_system.dart';
-import 'package:luci_mobile/screens/router_dashboard_settings_screen.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
+import 'package:router_pilot/main.dart';
+import 'package:router_pilot/widgets/luci_app_bar.dart';
+import 'package:router_pilot/design/luci_design_system.dart';
+import 'package:router_pilot/screens/router_dashboard_settings_screen.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
 
 class DashboardSettingsListScreen extends ConsumerWidget {
   const DashboardSettingsListScreen({super.key});

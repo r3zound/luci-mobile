@@ -83,7 +83,7 @@
   "restartRadio": "Radio herstarten",
   "availableNetworks": "BESCHIKBARE NETWERKEN",
   "hiddenNetworks": "VERBORGEN NETWERKEN",
-  "appTitle": "LuCI Mobile",
+  "appTitle": "RouterPilot",
   "exit": "Afsluiten",
   "loading": "Laden...",
   "customizeDashboardDescription": "Configureer de zichtbaarheid van de interface en de monitoring van de doorvoer",

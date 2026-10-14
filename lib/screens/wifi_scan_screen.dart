@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:luci_mobile/main.dart';
-import 'package:luci_mobile/models/wifi_scan_result.dart';
-import 'package:luci_mobile/design/luci_design_system.dart';
-import 'package:luci_mobile/state/app_state.dart';
-import 'package:luci_mobile/l10n/luci_localizations.dart';
+import 'package:router_pilot/main.dart';
+import 'package:router_pilot/models/wifi_scan_result.dart';
+import 'package:router_pilot/design/luci_design_system.dart';
+import 'package:router_pilot/state/app_state.dart';
+import 'package:router_pilot/l10n/luci_localizations.dart';
 
 String _signalStrength(BuildContext context, int signal) {
   if (signal >= -50) return context.l10n.excellent;

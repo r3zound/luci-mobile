@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:luci_mobile/models/uci_change.dart';
-import 'package:luci_mobile/models/wireless_config.dart';
-import 'package:luci_mobile/services/wireless_planner.dart';
+import 'package:router_pilot/models/uci_change.dart';
+import 'package:router_pilot/models/wireless_config.dart';
+import 'package:router_pilot/services/wireless_planner.dart';
 
 final _config = <String, dynamic>{
   'radio0': {
